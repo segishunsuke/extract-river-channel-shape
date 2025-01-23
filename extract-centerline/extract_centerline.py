@@ -7,7 +7,7 @@ import shapefile
 ksj = "http://nlftp.mlit.go.jp/ksj/schemas/ksj-app"
 jps = "http://www.gsi.go.jp/GIS/jpgis/standardSchemas"
 
-with open ("input_extract_centerline.csv", "r") as fin:
+with open ("input extract centerline.csv", "r") as fin:
     reader = csv.reader(fin)
     data = [row for row in reader]
 file_name = data[0][1]
