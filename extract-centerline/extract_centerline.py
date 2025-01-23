@@ -7,7 +7,7 @@ import shapefile
 ksj = "http://nlftp.mlit.go.jp/ksj/schemas/ksj-app"
 jps = "http://www.gsi.go.jp/GIS/jpgis/standardSchemas"
 
-with open ("input extract centerline.csv", "r") as fin:
+with open ("input_extract_centerline.csv", "r") as fin:
     reader = csv.reader(fin)
     data = [row for row in reader]
 file_name = data[0][1]
@@ -95,7 +95,7 @@ fout = open ('river.prj', 'w')
 fout.write('GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]')
 fout.close()
 
-w = shapefile.Writer("river points")
+w = shapefile.Writer("river_points")
 w.shapeType = shapefile.POINT
 w.field('id', 'N')
 w.field('curve', 'C', size=16)
@@ -104,6 +104,6 @@ for i in range(len(river)):
     w.record(i, river_curve[i])
 w.close()
 
-fout = open ('river points.prj', 'w')
+fout = open ('river_points.prj', 'w')
 fout.write('GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]')
 fout.close()
