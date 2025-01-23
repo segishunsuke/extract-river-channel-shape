@@ -32,7 +32,7 @@ pip install pyshp
 
 このフォルダに格納されている"[input_extract_centerline.csv](./input_extract_centerline.csv)"はインプットファイルのテンプレートです．
 
-インプットファイルは2行2列のCSV形式であり，各行の意味は以下の通りです．
+"input_extract_centerline.csv"は2行2列のCSV形式であり，各行の意味は以下の通りです．
 
 - Data file name: 抽出対象の河川を含む，国土数値情報のxmlファイルのファイル名
 - River code: 抽出対象の河川の河川コード
