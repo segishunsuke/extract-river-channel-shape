@@ -23,7 +23,7 @@
 - W05-xx_xx.xml: 抽出対象の河川を含む，国土数値情報のxmlファイル
 - input extract centerline.csv: 河川コードを指定するためのインプットファイル
 
-[このファイル](./extract-centerline/input extract centerline.csv)
+[このファイル](./extract-centerline/inputextract_centerline.py)
 はインプットファイルのテンプレートです．各行の意味は以下の通りです．
 
 - Data file name: 抽出対象の河川を含む，国土数値情報のxmlファイルのファイル名
