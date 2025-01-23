@@ -29,7 +29,7 @@ pip install pyshp
 - W05-xx_xx.xml: 抽出対象の河川を含む，国土数値情報のxmlファイル
 - input_extract_centerline.csv: 河川コードを指定するためのインプットファイル
 
-このフォルダに格納されている"[input_extract_centerline.csv](./input_extract_centerline.py)"はインプットファイルのテンプレートです．
+このフォルダに格納されている"[input_extract_centerline.csv](./input_extract_centerline.csv)"はインプットファイルのテンプレートです．
 インプットファイルは2行2列のCSV形式であり，各行の意味は以下の通りです．
 
 - Data file name: 抽出対象の河川を含む，国土数値情報のxmlファイルのファイル名
