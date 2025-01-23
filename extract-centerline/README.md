@@ -8,9 +8,7 @@
 
 ## 必要なPythonライブラリ
 
-このプログラムを用いるには，PythonのライブラリであるPyShpが必要です．
-
-[https://pypi.org/project/pyshp/](https://pypi.org/project/pyshp/)
+このプログラムを用いるには，Pythonのライブラリである[PyShp](https://pypi.org/project/pyshp/)が必要です．
 
 ## 必要な外部データ
 
