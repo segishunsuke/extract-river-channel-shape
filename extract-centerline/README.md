@@ -12,11 +12,6 @@
 
 [https://pypi.org/project/pyshp/](https://pypi.org/project/pyshp/)
 
-PyShpをインストールするには，プロンプト上で以下のコマンドを入力して下さい．
-```
-pip install pyshp
-```
-
 ## 必要な外部データ
 
 このプログラムを用いるには，国土数値情報の河川データ（XML形式）が必要です．国土数値情報の河川データは下記URLからダウンロードして下さい．
