@@ -14,12 +14,23 @@
 
 [https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html](https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html)
 
-
-
 #### インプットデータ
 
 このプログラムを用いるには，extract_centerline.pyと同じディレクトリに以下のファイルを置く必要があります．
-- George Washington
+
+- W05-**_**.xml: 抽出対象の河川を含む，国土数値情報のxmlファイル
+- input_extract_centerline.csv: 河川コードを指定するためのインプットファイル
+
+input_extract_centerline.csvのフォーマットは以下の通りです．
+
+| Data file name  | 抽出対象の河川を含む，国土数値情報のxmlファイルのファイル名 |
+| River code  | 抽出対象の河川の河川コード |
+
+河川コードは以下に示す，国土交通省のWebサイトで調べて下さい．
+
+[https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html](https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html)
+
+[このファイル](./extract-centerline/input_extract_centerline.csv)はインプットファイルの例です．この例では，北海道の河川データのxmlファイルと，石狩川の河川コードを指定しています．
 
 ### extract-river-coordinates
 
