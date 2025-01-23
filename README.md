@@ -21,9 +21,9 @@
 このプログラムを用いるには，extract_centerline.pyと同じディレクトリに以下のファイルを置く必要があります．
 
 - W05-xx_xx.xml: 抽出対象の河川を含む，国土数値情報のxmlファイル
-- input_extract_centerline.csv: 河川コードを指定するためのインプットファイル
+- input extract centerline.csv: 河川コードを指定するためのインプットファイル
 
-[このファイル](./extract-centerline/input_extract_centerline.csv)はインプットファイルのテンプレートです．各行の意味は以下の通りです．
+[このファイル](./extract-centerline/input extract centerline.csv)はインプットファイルのテンプレートです．各行の意味は以下の通りです．
 
 - Data file name: 抽出対象の河川を含む，国土数値情報のxmlファイルのファイル名
 - River code: 抽出対象の河川の河川コード
