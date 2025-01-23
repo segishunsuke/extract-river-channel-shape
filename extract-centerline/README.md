@@ -1,9 +1,20 @@
 ## 概要
 
 このフォルダは，国土数値情報の河川データから，指定された河川コードに対応する河川の河道中心線を抽出し，シェープファイル形式にて保存するPythonプログラムを格納しています．
-プログラム名は[extract_centerline.py](./extract_centerline.py)です．
+プログラム名は"[extract_centerline.py](./extract_centerline.py)"です．
 
-このプログラムのアウトプットファイルは，河道縦横断データの抽出プログラムのインプットファイルとなります．
+このプログラムのアウトプットファイルである"river.shp"とその支援ファイルは，河道縦横断データの抽出プログラムのインプットファイルとなります．
+
+## 必要なPythonライブラリ
+
+このプログラムを用いるには，PythonのライブラリであるPyShpが必要です．
+
+[https://pypi.org/project/pyshp/](https://pypi.org/project/pyshp/)
+
+PyShpをインストールするには，プロンプト上で以下のコマンドを入力して下さい．
+```
+pip install pyshp
+```
 
 ## 必要な外部データ
 
@@ -29,3 +40,11 @@
 河川コードは以下に示す，国土交通省のWebサイトで検索できます．
 
 [https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html](https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html)
+
+## アウトプットデータ
+
+[extract_centerline.py](./extract-centerline/extract_centerline.py)を実行すると，以下の2種類のシェープファイル（およびその支援ファイル）が出力されます．
+
+- river.shp: 指定された河川の河道中心線のラインデータを格納したファイル
+- river_points.shp: 抽出対象の河川の河川コード
+
