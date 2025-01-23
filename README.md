@@ -6,7 +6,7 @@
 
 このプログラムを用いるには，以下のPythonライブラリが必要です．
 
-- [Pyshp](https://pypi.org/project/pyshp/)
+- [PyShp](https://pypi.org/project/pyshp/)
 - [Pyproj](https://github.com/pyproj4/pyproj)
 
 お使いのPython環境にこれらのライブラリがインストールされていない場合は，プロンプト上で以下のコマンドを入力して下さい．
