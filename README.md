@@ -117,7 +117,7 @@ DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"ex
 
 ここまでの作業が完了し，"extract_river_channel_shape.py"の置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります．
 
-<img src="./assets/images/files.png" width="100%">
+<img src="./assets/images/files.png">
 
 ### 4-4. 基本パラメータの設定
 
