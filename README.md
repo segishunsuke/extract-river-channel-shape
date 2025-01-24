@@ -21,10 +21,19 @@ pip install pyproj
 
 国土数値情報の河川データから，縦横断データの抽出対象となる河川の河道中心線のデータを取得します．
 
+### プログラムのダウンロード
+
 "[extract-centerline](./extract-centerline)"に格納されている以下の2つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
 - [extract_centerline.py](./extract-centerline/extract_centerline.py)
 - [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
 
+### 国土数値情報　河川データのダウンロード
+
+下記URLから，縦横断データの抽出対象となる河川を含む都道府県のデータをダウンロードして下さい．
+
+[https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html](https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html)
+
+ダウンロードしたzipファイルを展開し，W05-XX-XX.xmlという名前のファイルを"extract_centerline.py"の置かれたディレクトリに置いて下さい．
 
 
