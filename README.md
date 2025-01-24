@@ -28,7 +28,7 @@ pip install pyproj
 - [extract_centerline.py](./extract-centerline/extract_centerline.py)
 - [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
 
-### 2-2. 国土数値情報　河川データのダウンロード
+### 2-2. 国土数値情報・河川データのダウンロード
 
 下記URLから，対象の河川を含む都道府県のデータをダウンロードして下さい．
 
