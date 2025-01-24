@@ -115,4 +115,6 @@ python extract_centerline.py
 
 DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
 
+### 4-4. 基本パラメータの設定
 
+以上の準備が
