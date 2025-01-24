@@ -15,20 +15,20 @@ plane_rectangular_coordinate_system = data[0][1] # 対象の河川を含む平�
 id_begin = int(data[1][1]) # 河道のポイントデータの何番目から始めるか
 id_end = int(data[2][1]) # 河道のポイントデータの何番目で終えるか，id_endを含む
 flow = float(data[3][1]) # 平水時の流量[m3]
-minimum_slope_water = float(data[4][1]) # 水面勾配の最小値
-roughness = float(data[5][1]) # 粗度係数
-distance_between_sections = float(data[6][1]) # 断面取得間隔[m]
-tol1 = float(data[7][1]) # 最低点からtol1メートル以上でなければ堤防の頂点と見なさない
-tol2 = float(data[8][1]) # 頂点からtol2メートル落ちたら堤防が終わったと見なす
-tol3 = float(data[9][1]) # 頂点からtol2メートル落ちた後に，勾配がtol3以下になったら終了
-tol4 = float(data[10][1]) # 頂点が川の端からtol4メートル以上離れている場合はtol1とtol2が高すぎるので調整してやり直し
-tol5 = float(data[11][1]) # 頂点と最低点の差がtol5メートル以上の場合はtol1とtol2が高すぎるので調整してやり直し
+tol1 = float(data[4][1]) # 最低点からtol1メートル以上でなければ堤防の頂点と見なさない
+tol2 = float(data[5][1]) # 頂点からtol2メートル落ちたら堤防が終わったと見なす
+tol3 = float(data[6][1]) # 頂点からtol2メートル落ちた後に，勾配がtol3以下になったら終了
+tol4 = float(data[7][1]) # 頂点が川の端からtol4メートル以上離れている場合はtol1とtol2が高すぎるので調整してやり直し
+tol5 = float(data[8][1]) # 頂点と最低点の差がtol5メートル以上の場合はtol1とtol2が高すぎるので調整してやり直し
 # tol3の基準を満たす点を探している間に再び頂点が更新された場合はtol2の基準からやり直し
-adjust1 = float(data[12][1])  # tol1を何倍に調整するか
-adjust2 = float(data[13][1])  # tol2を何倍に調整するか
-adjust3 = float(data[14][1]) # tol3を何倍に調整するか
-transverse_interval = float(data[15][1]) # 横断面のポイント間隔(m)
-difference_in_differential_equation = float(data[16][1]) # 不等流計算の差分間隔(m)
+adjust1 = float(data[9][1])  # tol1を何倍に調整するか
+adjust2 = float(data[10][1])  # tol2を何倍に調整するか
+adjust3 = float(data[11][1]) # tol3を何倍に調整するか
+distance_between_sections = float(data[12][1]) # 断面取得間隔[m]
+transverse_interval = float(data[13][1]) # 横断面のポイント間隔[m]
+difference_in_differential_equation = float(data[14][1]) # 不等流計算の差分間隔[m]
+roughness = float(data[15][1]) # 粗度係数
+minimum_slope_water = float(data[16][1]) # 水面勾配の最小値
 n_samples_for_median = int(data[17][1]) # 中央値を計算する際のサンプル数
 if n_samples_for_median % 2 == 0:
     raise ValueError("n_samples_for_averagingには奇数を指定して下さい")
@@ -353,18 +353,23 @@ for i_section in range(n_sections-1):
 河床の設定
 """
 depths = np.zeros(n_sections)
-elevations_riverbed = np.zeros(n_sections)
-for i_section in range(n_sections-1, -1, -1): # 上流の横断面から下流の横断面に向けて河床の設定を行う
-    section_topography = sections_topography[i_section] # 横断面i_sectionの標高の数列
-    j_stake_right = js_stake_right[i_section] # 右岸側の杭のj座標
-    j_stake_left = js_stake_left[i_section] # 左岸側の杭のj座標
-    
+elevations_riverbed_tmp = np.zeros(n_sections)
+for i_section in range(n_sections-1, -1, -1): # 上流の横断面から下流の横断面に向けて水深の計算を行う
     if i_section == n_sections - 1:
         depths[i_section] = np.power(flows[i_section] * roughness / ( widths_river[i_section] * np.sqrt(slopes_water[i_section] ) ), 3.0 / 5.0) # 最上流には等流の公式を適用
     else:
         depths[i_section] = open_channel.find_depth(depths[i_section+1], flows[i_section+1], widths_river[i_section], widths_river[i_section+1], slopes_water[i_section], distance_between_sections, int(distance_between_sections / difference_in_differential_equation + 0.5), roughness)
     
-    elevations_riverbed[i_section] = elevations_water[i_section] - depths[i_section]
+    elevations_riverbed_tmp[i_section] = elevations_water[i_section] - depths[i_section]
+
+elevations_riverbed = np.zeros(n_sections)
+for i_section in range(n_sections):
+    r = min(n_samples_for_median // 2, i_section, n_sections - 1 - i_section) # 自身±rの範囲の横断面を考える
+    elevations_riverbed[i_section] = np.median(elevations_riverbed_tmp[i_section-r:i_section+r+1])
+    
+    section_topography = sections_topography[i_section] # 横断面i_sectionの標高の数列
+    j_stake_right = js_stake_right[i_section] # 右岸側の杭のj座標
+    j_stake_left = js_stake_left[i_section] # 左岸側の杭のj座標
     section_topography[j_stake_left:j_stake_right+1] = np.fmax(section_topography[j_stake_left:j_stake_right+1], elevations_riverbed[i_section]) # 河床底面を設定（-9999.0を河床底面の標高に切り上げ，elevation_riverbedよりも低い点も含む）
         
     """
