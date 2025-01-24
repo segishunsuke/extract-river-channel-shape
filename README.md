@@ -83,7 +83,7 @@ python extract_centerline.py
 
 ## 4. 河道縦横断データの抽出（初回）
 
-### 4-1. 河道中心線の抽出を行うプログラムの準備
+### 4-1. プログラムの準備
 
 "[code](./code)"に格納されている以下の4つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
@@ -92,13 +92,17 @@ python extract_centerline.py
 - [open_channel.py](./code/open_channel.py)
 - [basic_parameters.csv](./code/basic_parameters.csv)
 
-### 4-2. DEMデータの準備
+### 4-2. 河道中心線のデータの準備
+
+[2-4](#2-4)で取得した"river.shp"を"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
+
+### 4-3. DEMデータの準備
 
 下記URLから，河道縦横断データの抽出範囲を含む，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）をダウンロードして下さい．
 
 [https://fgd.gsi.go.jp/download/menu.php](https://fgd.gsi.go.jp/download/menu.php)
 
-ダウンロードの手順は次の通りです．
+ダウンロードの手順は以下の通りです．
 
 1. 「基盤地図情報　数値標高モデル」の「ファイル選択へ」をクリックする
 2. 地図上で対象範囲の2次メッシュをクリックして全て選択する
@@ -110,3 +114,5 @@ python extract_centerline.py
 ダウンロードしたzipファイルには，"FG-GML-XXXX-XX-DEM5X.zip"という名前のファイルが含まれています．これらのzipファイルを全て展開し，中に含まれている"FG-GML-XXXX-XX-XX-DEM5X-XXXXXXXX.xml"という名前のファイルを全て同一のフォルダに置いて下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
 
 DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
+
+
