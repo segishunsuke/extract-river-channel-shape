@@ -205,13 +205,13 @@ tol1-5の設定値は，後の分析で横断面ごとにカスタマイズで�
 
 このパラメータは，河道中心線に沿った，横断面の取得間隔（単位：m）です．
 
-100mもしくは200mを指定するのが適切だと考えられます．
+"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，200mに設定されています．
 
 #### 4-4-6. Transverse interval
 
 このパラメータは，横断方向の標高取得間隔（単位：m）です．
 
-1mを指定するのが適切だと考えられます．
+"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，1mに設定されています．
 
 #### 4-4-7. 水深の計算に利用されるパラメータ
 
