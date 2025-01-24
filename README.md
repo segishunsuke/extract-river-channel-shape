@@ -87,7 +87,10 @@ python extract_centerline.py
 
 "[code](./code)"に格納されている以下の3つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
-- [extract_centerline.py](./extract-centerline/extract_centerline.py)
-- [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
+- [extract_river_channel_shape.py](./code/extract_river_channel_shape.py)
+- [dem.py](./code/dem.py)
+- [open_channel.py](./code/open_channel.py)
+- [basic_parameters.csv](./code/basic_parameters.csv)
 
+  
 
