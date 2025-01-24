@@ -27,7 +27,7 @@
 
 "input_extract_centerline.csv"は2行2列のCSV形式であり，各行の意味は以下の通りです．
 
-- Data file name: 対象の河川を含む，国土数値情報のxmlファイルのファイル名
+- Data file name: 国土数値情報のxmlファイルのファイル名
 - River code: 対象の河川の河川コード
 
 テンプレートでは，北海道の河川データのxmlファイルと，石狩川の河川コードを指定しています．
