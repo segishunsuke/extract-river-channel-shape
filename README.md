@@ -85,7 +85,7 @@ python extract_centerline.py
 
 ### 4-1. 河道中心線の抽出を行うプログラムの準備
 
-"[extract-centerline](./extract-centerline)"に格納されている以下の2つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
+"[code](./code)"に格納されている以下の3つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
 - [extract_centerline.py](./extract-centerline/extract_centerline.py)
 - [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
