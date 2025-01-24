@@ -65,8 +65,7 @@ python extract_centerline.py
 
 例として，石狩川の"river_points.shp"をQGISで開き，石狩川河川敷公園（座標：43.130921N, 141.533418E）付近を拡大表示したものを以下の図に示します．
 
-![Screenshot of river points data of Ishikari-Gawa River](./assets/images/river_points.png)
-
+<img src="./assets/images/river_points.png" width="100px">
 
 このシェープファイルに格納されているポイントデータは，属性として"id"という識別番号を持ちます．
 
