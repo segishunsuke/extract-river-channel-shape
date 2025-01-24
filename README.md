@@ -125,14 +125,7 @@ DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"ex
 
 csvファイルは18行2列のファイルで，各行が一つのパラメータに対応しています．1列目がパラメータ名，2列目がパラメータの設定値です．
 
-各パラメータの意味は下記の通りです．
-
-- Distance between sections [m]: 横断面の取得間隔
-- Transverse interval [m]: 横断方向の標高取得間隔
-- Difference in differential equation [m]: 水深の計算に利用
-- Roughness coefficient: 水深の計算に利用
-- Minimum water surface slope: 水深の計算に利用
-- Number of samples for median calculation: 断面別の水面標高の計算に利用
+各パラメータの意味は下記の通りです
 
 以上のうち，対象の河道に応じて設定値を変えなければいけないのは，最初の4つです．その他のパラメータについては，"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"の設定値をそのまま用いても構いません．"[code](./code)"に格納されているファイルでは，石狩川の河道の，夕張川との合流部から河口までの範囲を想定してパラメータ設定が行われています．
 
@@ -208,3 +201,27 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 tol1-5の設定値は，後の分析で横断面ごとにカスタマイズできます．
 
+#### 4-4-5. Distance between sections
+
+このパラメータは，河道中心線に沿った，横断面の取得間隔（単位：m）です．
+
+100mもしくは200mを指定するのが適切だと考えられます．
+
+#### 4-4-6. Transverse interval
+
+このパラメータは，横断方向の標高取得間隔（単位：m）です．
+
+1mを指定するのが適切だと考えられます．
+
+#### 4-4-7. 水深の計算に利用されるパラメータ
+
+以下の4つのパラメータは，DEMからは取得できない，水面下の地形の平均的な標高を見積もるのに利用されます．
+
+- Difference in differential equation
+- Roughness coefficient
+- Minimum water surface slope
+- Number of samples for median calculation
+
+これらのパラメータには，"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"の設定値を用いて下さい．
+
+これらのパラメータの
