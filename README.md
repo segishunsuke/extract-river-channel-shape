@@ -92,5 +92,9 @@ python extract_centerline.py
 - [open_channel.py](./code/open_channel.py)
 - [basic_parameters.csv](./code/basic_parameters.csv)
 
-### 4-2. DEMデータの河道中心線の抽出を行うプログラムの準備
+### 4-2. DEMデータの準備
+
+下記URLから，対象の河川を含む地域の5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）をダウンロードして下さい．
+
+[https://fgd.gsi.go.jp/download/menu.php](https://fgd.gsi.go.jp/download/menu.php)
 
