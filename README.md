@@ -1,4 +1,4 @@
-このリポジトリでは，日本の数値標高モデルと国土数値情報の河川データから，氾濫解析用の河道縦横断データを自動抽出するPythonプログラムを公開しています．
+このリポジトリでは，日本の数値標高モデル（Degital Elevation Model, DEM）と国土数値情報の河川データから，氾濫解析用の河道縦横断データを自動抽出するPythonプログラムを公開しています．
 
 このREADMEではプログラムの使用方法を段階に分けて説明します．
 
@@ -85,12 +85,12 @@ python extract_centerline.py
 
 ### 4-1. 河道中心線の抽出を行うプログラムの準備
 
-"[code](./code)"に格納されている以下の3つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
+"[code](./code)"に格納されている以下の4つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
 - [extract_river_channel_shape.py](./code/extract_river_channel_shape.py)
 - [dem.py](./code/dem.py)
 - [open_channel.py](./code/open_channel.py)
 - [basic_parameters.csv](./code/basic_parameters.csv)
 
-  
+### 4-2. DEMデータの河道中心線の抽出を行うプログラムの準備
 
