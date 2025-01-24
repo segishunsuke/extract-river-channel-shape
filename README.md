@@ -21,14 +21,14 @@ pip install pyproj
 
 国土数値情報の河川データから，縦横断データの抽出対象となる河川の河道中心線のデータを取得します．
 
-### 2-1. 河道中心線の抽出を行うプログラムのダウンロード
+### 2-1. 河道中心線の抽出を行うプログラムの準備
 
 "[extract-centerline](./extract-centerline)"に格納されている以下の2つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
 - [extract_centerline.py](./extract-centerline/extract_centerline.py)
 - [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
 
-### 2-2. 国土数値情報・河川データのダウンロード
+### 2-2. 国土数値情報・河川データの準備
 
 下記URLから，対象の河川を含む都道府県のデータをダウンロードして下さい．
 
@@ -80,5 +80,14 @@ python extract_centerline.py
 上流端のポイントについては，抽出したい範囲から1kmほど上流に設定して下さい．これは，河道縦横断データの抽出を行うプログラムが，下流端のポイントから標高の読み取りを開始し，上流端のポイントの直前で標高の読み取りを終了するためです．そのため，上流端のポイントの標高は読み取られません．
 
 なお，"river_points.shp"は，利用者が河道縦横断データの抽出範囲を決定するために用いるファイルであり，河道縦横断データの抽出を行うプログラムには利用されません．
+
+## 4. 河道縦横断データの抽出（初回）
+
+### 4-1. 河道中心線の抽出を行うプログラムの準備
+
+"[extract-centerline](./extract-centerline)"に格納されている以下の2つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
+
+- [extract_centerline.py](./extract-centerline/extract_centerline.py)
+- [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
 
 
