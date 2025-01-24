@@ -150,7 +150,7 @@ csvファイルは18行2列のファイルで，各行が一つのパラメー�
 
 以下では，各パラメータの設定方法を整理します．
 
-#### Plane rectangular coordinate system
+#### 4-4-1. Plane rectangular coordinate system
 
 対象の河道をカバーする平面直角座標系のEPSGコードです．
 
@@ -162,7 +162,7 @@ EPSGコードは"epsg:6680"のように記載して下さい．
 
 [https://lemulus.me/column/epsg-list-gis#2011JGD2011](https://lemulus.me/column/epsg-list-gis#2011JGD2011)
 
-#### Initial point ID, Terminal point ID
+#### 4-4-2. Initial point ID, Terminal point ID
 
 これらのパラメータにはそれぞれ，[3](#3)で決定した上流端のポイントの識別番号と，下流端のポイントの識別番号を設定して下さい．
 
