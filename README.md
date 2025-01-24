@@ -38,7 +38,7 @@ pip install pyproj
 
 ### 2-3. 河川コードの指定
 
-"input_extract_centerline.csv"を開き，1行2列に国土数値情報のxmlファイルの名前（W05-XX-XX.xml）を，2行2列に対象の河川の河川コードを記載して上書き保存して下さい．
+"input_extract_centerline.csv"を開き，1行2列に国土数値情報のxmlファイルの名前（W05-XX-XX.xml）を，2行2列に対象の河川の河川コードを入力して上書き保存して下さい．
 
 河川コードは以下に示す，国土交通省のWebサイトで検索できます．
 
@@ -59,7 +59,7 @@ python extract_centerline.py
 - river.shp: 指定された河川の河道中心線のラインデータを格納したファイル
 - river_points.shp: "river.shp"のラインデータを構成するポイントのデータを格納したファイル
 
-## 3. 河道縦横断データの抽出範囲の決定
+## 3. 河道縦横断データの抽出範囲の決定<a name="3"></a>
 
 [2-4](#2-4)で取得した"river_points.shp"をGISソフトウェアで開いて下さい．
 
@@ -120,6 +120,18 @@ DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"ex
 <img src="./assets/images/files.png">
 
 ### 4-4. 基本パラメータの設定
+
+"basic_parameters.csv"を開き，プログラムが使用する基本パラメータの設定を行って下さい．
+
+csvファイルは18行2列のファイルで，各行が一つのパラメータに対応しています．1列目がパラメータ名，2列目がパラメータの設定値です．
+
+各パラメータの意味は下記の通りです．
+
+- Plane rectangular coordinate system: 対象の河川をカバーする平面直角座標系のEPSGコード
+- Initial point ID: [3](#3)で決定した上流端のポイントの識別番号
+- Terminal point ID: [3](#3)で決定した下流端のポイントの識別番号
+- Distance between sections [m]: 横断面の取得間隔(m)
+
 
 
 
