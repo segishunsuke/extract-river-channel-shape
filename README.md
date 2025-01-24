@@ -94,7 +94,7 @@ python extract_centerline.py
 
 ### 4-2. 河道中心線のデータの準備
 
-[2-4](#2-4)で取得した"river.shp"を"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
+[2-4](#2-4)で取得した"river.shp"とその支援ファイルを"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
 
 ### 4-3. DEMデータの準備
 
@@ -117,7 +117,7 @@ DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"ex
 
 ここまでの作業が完了し，"extract_river_channel_shape.py"の置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります．
 
-<img src="./assets/images/files.png" width="400px">
+<img src="./assets/images/files.png" width="200px">
 
 ### 4-4. 基本パラメータの設定
 
