@@ -38,7 +38,12 @@ pip install pyproj
 
 ### 2-3. 河川コードの指定
 
-"input_extract_centerline.csv"を開き，1行2列に国土数値情報のxmlファイルの名前（W05-XX-XX.xml）を，2行2列に対象の河川の河川コードを入力して上書き保存して下さい．
+"input_extract_centerline.csv"を開き，二つの項目の設定を行ってから上書き保存して下さい．
+
+各項目の意味は以下の通りです．
+
+- Data file name: 国土数値情報のxmlファイルの名前（W05-XX-XX.xml）
+- River code: 対象の河川の河川コード
 
 河川コードは以下に示す，国土交通省のWebサイトで検索できます．
 
