@@ -4,8 +4,7 @@
 
 格納されているファイルの内容は以下の通りです．
 
-プログラム名は"[extract_centerline.py](./extract_centerline.py)"です．
-
-このプログラムのアウトプットファイルである，"river_centerline.shp"とその支援ファイルは，河道縦横断データの抽出プログラムのインプットファイルとなります．
+- [extract_centerline.py](./extract_centerline.py): プログラム
+- [input_extract_centerline.csv](./input_extract_centerline.csv): プログラムの設定ファイル
 
 プログラムの使用方法については，親フォルダの[README](../README.md)を見て下さい．
