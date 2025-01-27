@@ -9,7 +9,7 @@
 - [PyShp](https://pypi.org/project/pyshp/)
 - [Pyproj](https://github.com/pyproj4/pyproj)
 
-お使いのPython環境にこれらのライブラリがインストールされていない場合は，プロンプト上で以下のコマンドを入力して下さい．
+お使いのPython環境にこれらのライブラリがインストールされていない場合は，プロンプト上で以下のコマンドを入力してインストールを行って下さい．
 ```
 pip install pyshp
 ```
