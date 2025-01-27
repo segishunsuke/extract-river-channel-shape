@@ -15,8 +15,8 @@
 
 ### 水深の逆算方法
 
-ここでは，"[open_channel.py](./open_channel.py)"に実装されている，水深の逆算方法を述べます．
-
+ここでは，"[open_channel.py](./open_channel.py)"に実装されている，水深の逆算方法を述べます．このプログラムは，広矩形単断面を持つ水路の不等流計算の基礎式である，
 ```math
 \frac{dH}{dx} + \frac{1}{2g} \frac{d}{dx} \left( \frac{Q}{Bh} \right)^2 + \frac{\mu^2 Q^2}{B^2 h^{10/3}} = 0
 ```
+を用いています．
