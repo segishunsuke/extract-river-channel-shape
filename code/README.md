@@ -17,4 +17,6 @@
 
 ここでは，"[open_channel.py](./open_channel.py)"に実装されている，水深の逆算方法を述べます．
 
-
+```math
+\frac{dH}{dx} + \frac{1}{2g} \frac{d}{dx} \left( \frac{Q}{Bh} \right)^2 + \frac{\mu^2 Q^2}{B^2 h^{10/3}} = 0
+```
