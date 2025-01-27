@@ -7,4 +7,4 @@
 - [extract_centerline.py](./extract_centerline.py): プログラム
 - [input_extract_centerline.csv](./input_extract_centerline.csv): プログラムの設定ファイル
 
-プログラムの使用方法については，親フォルダの[README](../README.md)を見て下さい．
+プログラムの使用方法については，親フォルダの[README](../README.md#2)を見て下さい．
