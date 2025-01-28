@@ -240,6 +240,7 @@ python extract_river_channel_shape.py
 
 - intermediate_result.csv: DEMから読み取った標高の生データを横断面ごとに記録したファイル，編集しないで下さい
 - setting.csv: 横断面別に平水流量やtol1-5を設定するためのファイル
-- oudan.csv, kui.csv: 国土交通省の河川定期縦横断データのフォーマットに従った河道縦横断データ
+- oudan.csv, kui.csv: 河道縦横断データ
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
+"oudan.csv", "kui.csv"は国土交通省の河川定期縦横断データのフォーマットに従っています．
