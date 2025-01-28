@@ -46,7 +46,7 @@ H_N = \hat{H}_N
 ```math
 H_i = \min \left[ \hat{H}_i, H_{i+1} - \eta_\mathrm{min} D \right] \quad (1 \le i < N)
 ```
-と設定します．ここで，$`\eta_\mathrm{min}>0`$は分析者により設定される定数であり，水面勾配の最小値を表します．こうして得られた$`H_i`$を，開水路の不等流計算の基礎式に代入して水深を計算します．
+と設定します．ここで，$`D`$(m)は隣り合う横断面間の距離です．$`\eta_\mathrm{min}>0`$は分析者により設定される定数であり，水面勾配の最小値を表します．こうして得られた$`H_i`$を，開水路の不等流計算の基礎式に代入して水深を計算します．
 
 "[basic_parameters.csv](./basic_parameters.csv)"のパラメータ，"Minimum water surface slope"は$`m`$を，"Number of samples for median calculation"は$`\eta_\mathrm{min}`$を指します．
 
