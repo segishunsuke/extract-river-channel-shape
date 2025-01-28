@@ -14,7 +14,7 @@ with open ("basic_parameters.csv", "r") as fin:
 plane_rectangular_coordinate_system = data[0][1] # 対象の河川を含む平面直角座標系を指定
 id_begin = int(data[1][1]) # 河道のポイントデータの何番目から始めるか
 id_end = int(data[2][1]) # 河道のポイントデータの何番目で終えるか，id_endを含む
-flow = float(data[3][1]) # 平水時の流量[m3]
+flow = float(data[3][1]) # 平水時の流量[m3/s]
 tol1 = float(data[4][1]) # 最低点からtol1メートル以上でなければ堤防の頂点と見なさない
 tol2 = float(data[5][1]) # 頂点からtol2メートル落ちたら堤防が終わったと見なす
 tol3 = float(data[6][1]) # 頂点からtol2メートル落ちた後に，勾配がtol3以下になったら終了
