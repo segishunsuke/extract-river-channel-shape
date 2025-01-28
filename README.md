@@ -225,3 +225,19 @@ tol1-5の設定値は，後の分析で横断面ごとにカスタマイズで�
 これらのパラメータには，"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"の設定値を用いて下さい．
 
 これらのパラメータの意味については，"[code](./code)"の[README](./code/README.md)を見て下さい．
+
+### 4-5. プログラムの実行
+
+"[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)"を実行して下さい．
+
+```
+python extract_river_channel_shape.py
+```
+
+プログラムが終了すると，以下のcsvファイルが出力されます．
+
+- intermediate_result.csv: DEMから読み取った標高の生データを横断面ごとに記録したファイル，編集しないで下さい
+- setting.csv: 横断面別に平水流量やtol1-5を設定するためのファイル
+- oudan.csv, kui.csv: 国土交通省の河川定期縦横断データのフォーマットに従った河道縦横断データ
+- elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
+
