@@ -21,7 +21,7 @@
 ```
 を用いています．ここで，$`H`$は水面の標高(m)を，$`x`$は河道の縦断距離(m)（上流側を正に取る）を，$`g`$は重力加速度(m/s$`^2`$)を，$`Q`$は流量(m$`^3`$/s)を，$`B`$は横断方向の水面の幅(m)を，$`h`$は水深(m)を，$`n`$は粗度係数(m$`^{-1/3}`$s)を表します．各横断面における水面の幅$`B`$と，水面の標高$`H`$は，DEMから推測することができます．よって，各横断面における平水流量$`Q`$を与えれば，この微分方程式を用いて，各横断面における未知の水深$`h`$を計算できます．
 
-親フォルダの[READMEの4-4-7](../README.md#4-4-7)にて挙げられている4つのパラメータは，この微分方程式に関するものです．
+親フォルダの[READMEの4-4-7](../README.md#4-4-7)にて挙げられている，"[basic_parameters.csv](./basic_parameters.csv)"の4つのパラメータは，この微分方程式に関するものです．
 
 - Difference in differential equation: 上記微分方程式を$`x`$軸方向に離散化する際の差分間隔(m)
 - Roughness coefficient: 粗度係数$`n`$
@@ -30,10 +30,23 @@
 
 [extract_river_channel_shape.py](./extract_river_channel_shape.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推測します．
 
-まず，各横断面$`i`$について，堤外地の最小の標高値を水面の標高の近似値と見なし，$\tilde{H}_i$とする．そのうえで，複数の横断面について，$\tilde{H}_i$の中央値を取ることにより，近似誤差の影響を抑える．
+まず，各横断面$`i`$について，堤外地の最小の標高値を水面の標高の近似値と見なし，$`\tilde{H}_i`$とします．そのうえで，複数の横断面について，$`\tilde{H}_i`$の中央値を取ることにより，近似誤差の影響を抑えます．
 ```math
-\hat{H}_i = \mathrm{median} \left[ \tilde{H}_{i-r_s(i)}, \tilde{H}_{i-r_s(i)+1}, \cdots, \tilde{H}_{i+r_s(i)} \right] \label{eq7}
+\hat{H}_i = \mathrm{median} \left[ \tilde{H}_{i-r_s(i)}, \tilde{H}_{i-r_s(i)+1}, \cdots, \tilde{H}_{i+r_s(i)} \right]
 ```
 ```math
-r_s(i) = \min \left[ m \div 2 , n - i, i - 1 \right]
+r_s(i) = \min \left[ m \div 2 , N - i, i - 1 \right]
 ```
+ここで，$`r_s(i)`$は，中央値の計算に用いる横断面を，横断面$i$の前後それぞれにいくつ設けるのかを表します．$`m \ge 1`$は分析者により設定される奇数の定数です．$`N`$は横断面の総数です．横断面1は最下流の横断面，横断面$`N`$は最上流の横断面とします．対象の河道の上流端と下流端では，横断面$i$の前後に$m \div 2$個の横断面を設けられないため，それよりも少ない個数の横断面を用いて中央値が計算されます．
+
+$`\hat{H}_i`$を用いても，下流側の水面標高が上流側の水面標高よりも高くなることがあります．そこで，水面の標高が河道を下るのに伴い単調に減少するように，
+```math
+H_N = \hat{H}_N
+```
+```math
+H_i = \min \left[ \hat{H}_i, H_{i+1} - \eta_\mathrm{min} D \right] \quad (1 \le i < N)
+```
+と設定します．ここで，$`\eta_\mathrm{min}>0`$は分析者により設定される定数であり，水面勾配の最小値を表します．こうして得られた$`H_i`$を，開水路の不等流計算の基礎式に代入して水深を計算します．
+
+"[basic_parameters.csv](./basic_parameters.csv)"のパラメータ，"Minimum water surface slope"は$`m`$を，"Number of samples for median calculation"は$`\eta_\mathrm{min}`$を指します．
+
