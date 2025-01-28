@@ -50,6 +50,6 @@ H_i = \min \left[ \hat{H}_i, H_{i+1} - \eta_\mathrm{min} D \right] \quad (1 \le 
 
 "[basic_parameters.csv](./basic_parameters.csv)"のパラメータ，"Minimum water surface slope"は$`m`$を，"Number of samples for median calculation"は$`\eta_\mathrm{min}`$を指します．
 
-このフォルダに置かれている"[basic_parameters.csv](./basic_parameters.csv)"では，$`m`$に1000001（事実上∞）を，$`\eta_\mathrm{min}`$に10万分の1を設定しています．$`m`$と$`\eta_\mathrm{min}`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことにご注意下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
+このフォルダに置かれている"[basic_parameters.csv](./basic_parameters.csv)"では，$`m`$に1000001（事実上∞）を，$`\eta_\mathrm{min}`$に10万分の1を設定しています．$`m`$と$`\eta_\mathrm{min}`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
 
 粗度係数$`n`$の設定値には0.05を推奨します．この値を大きくすると，一般に水深は深くなります．
