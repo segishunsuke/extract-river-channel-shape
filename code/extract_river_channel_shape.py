@@ -36,11 +36,11 @@ if n_samples_for_median % 2 == 0:
 """
 河川の中心線の座標データの読み取り
 """
-sf = shapefile.Reader("river")
+sf = shapefile.Reader("river_centerline")
 shapes = sf.shapes()
-points = np.array(shapes[0].points)
-points = points[id_begin:id_end+1,:]
-points[:,:] = points[::-1,:] # 河川の中心線を構成する点の座標（緯度経度）の配列，points[i,0]はi番の点の経度，points[i,1]はi番の点の緯度，点は下流から上流に向けて並ぶ
+points = np.zeros((id_end+1-id_begin,2)) # 河川の中心線を構成する点の座標の配列，points[i,0]はi番の点の経度，points[i,1]はi番の点の緯度，点は下流から上流に向けて並ぶ
+for i in range(len(points)):
+    points[i,0], points[i,1] = shapes[id_end-i].points[0]
 sf.close()
 
 """
@@ -178,6 +178,7 @@ except FileNotFoundError:
 """
 下流（i_section = 0）から上流に向けて横断面の標高データを生成していく
 """
+print("横断面の標高データを読み取ります")
 for i_section in range(n_sections):
     print(str(i_section)+" / "+str(n_sections))
     
@@ -306,6 +307,7 @@ for i_section in range(n_sections):
 """
 途中経過の出力
 """
+print("途中経過を出力します")
 with open ("intermediate_result.csv", "w") as fout:
     for i_section in range(n_sections):
         fout.write(str(stakes_right[i_section,0])+","+str(stakes_right[i_section,1])+","+str(stakes_right[i_section,2])+","+str(stakes_left[i_section,0])+","+str(stakes_left[i_section,1])+","+str(stakes_left[i_section,2])+","+str(js_stake_right[i_section])+","+str(js_stake_left[i_section])+","+str(js_center[i_section])+","+str(len(sections_topography[i_section])))
@@ -321,6 +323,7 @@ with open ("setting.csv", "w") as fout:
 """
 川幅と水面の標高・勾配の設定
 """
+print("横断面の河床標高を設定します")
 widths_river = np.zeros(n_sections)
 elevations_water_tmp = np.zeros(n_sections)
 for i_section in range(n_sections):
@@ -355,6 +358,7 @@ for i_section in range(n_sections-1):
 depths = np.zeros(n_sections)
 elevations_riverbed_tmp = np.zeros(n_sections)
 for i_section in range(n_sections-1, -1, -1): # 上流の横断面から下流の横断面に向けて水深の計算を行う
+    print(str(i_section)+" / "+str(n_sections))    
     if i_section == n_sections - 1:
         depths[i_section] = np.power(flows[i_section] * roughness / ( widths_river[i_section] * np.sqrt(slopes_water[i_section] ) ), 3.0 / 5.0) # 最上流には等流の公式を適用
     else:
@@ -392,6 +396,7 @@ for i_section in range(n_sections):
     
     sections_topography[i_section] = section_topography
 
+print("河道縦横断データを出力します")
 with open ("oudan.csv", "w") as fout:
     for i_section in range(n_sections):
         fout.write(str(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
@@ -408,3 +413,5 @@ with open ("elevation.csv", "w") as fout:
     fout.write("Distance,Riverbed,Water surface,Stake left,Stake right\n")
     for i_section in range(n_sections):
         fout.write(str(0.001*distance_between_sections*i_section)+","+str(elevations_riverbed[i_section])+","+str(elevations_water[i_section])+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+"\n")
+
+print("プログラムの実行が完了しました")
