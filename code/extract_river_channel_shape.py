@@ -235,6 +235,8 @@ for i_section in range(n_sections):
                 tol1s[i_section,1] *= adjust1
                 tol2s[i_section,1] = max(tol2s[i_section,1] * adjust2 - 0.1, 0.0)
                 tol3s[i_section,1] *= adjust3
+                if tol3s[i_section,1] >= 100.0:
+                    raise ValueError("座標("+str(center[1])+"N, "+str(center[0])+"E)の右岸側の地形データが存在しません")
                 j = 0
                 top = -9999.0
                 bottom = -9999.0
@@ -285,6 +287,8 @@ for i_section in range(n_sections):
                 tol1s[i_section,0] *= adjust1
                 tol2s[i_section,0] = max(tol2s[i_section,0] * adjust2 - 0.1, 0.0)
                 tol3s[i_section,0] *= adjust3
+                if tol3s[i_section,0] >= 100.0:
+                    raise ValueError("座標("+str(center[1])+"N, "+str(center[0])+"E)の左岸側の地形データが存在しません")
                 j = -1
                 top = -9999.0
                 bottom = -9999.0
@@ -301,6 +305,17 @@ for i_section in range(n_sections):
         js_center[i_section] = len(section_topography_left) # 中心線上の点のj座標（修正後の座標）をjs_centerベクトルに記録
         js_stake_right[i_section] = j_stake_right # 右岸側の杭のj座標（修正後の座標）をjs_stake_rightベクトルに記録
         js_stake_left[i_section] = j_stake_left # 左岸側の杭のj座標（修正後の座標）をjs_stake_leftベクトルに記録
+        
+        n_water_points = np.count_nonzero(section_topography == -9999.0) # 杭に挟まれた区間内の水面の点の個数
+        if n_water_points == 0: # 水面が見つからなかった場合にはtolを緩めてやり直す
+            print("水面が見つかりませんでした，この断面のtol1-3を緩めて標高読み取りをやり直します")
+            tol1s[i_section,0] = tol5s[i_section,0] * 0.9
+            tol2s[i_section,0] = 0.0
+            tol3s[i_section,0] = 1.0
+            tol1s[i_section,1] = tol5s[i_section,1] * 0.9
+            tol2s[i_section,1] = 0.0
+            tol3s[i_section,1] = 1.0
+            continue
         
         sections_topography[i_section] = section_topography # 断面データのsections_topographyリストへの追加
 
@@ -333,8 +348,6 @@ for i_section in range(n_sections):
     section_topography = section_topography[j_stake_left:j_stake_right+1]
     
     n_water_points = np.count_nonzero(section_topography == -9999.0) # 杭に挟まれた区間内の水面の点の個数
-    if n_water_points == 0: # tolの設定が悪い場合には水面が見つからないことがある
-        raise ValueError("断面"+str(0.001*distance_between_sections*i_section)+"km (左杭座標: "+str(stakes_left[i_section,0])+", "+str(stakes_left[i_section,1])+" 右杭座標: "+str(stakes_right[i_section,0])+", "+str(stakes_right[i_section,1])+")において水面が見つかりませんでした\nこの断面のtol1とtol3を大きく設定して下さい")
     widths_river[i_section] = n_water_points * transverse_interval
     
     elevations_water_tmp[i_section] = np.min( section_topography[section_topography != -9999.0] ) # 杭に挟まれた区間内の標高の最小値を水面の標高とする
