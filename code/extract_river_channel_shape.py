@@ -420,22 +420,22 @@ if not os.path.exists("output"):
 if not iric_style:
     with open ("./output/oudan.csv", "w") as fout:
         for i_section in range(n_sections):
-            fout.write("{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
+            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
             for j in range(len(sections_topography[i_section])):
                 fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
     
     with open ("./output/kui.csv", "w") as fout:
         fout.write("水系名,河川名,河川番号,地方整備局名,事務所名,管轄出張所名,左右岸,距離標名,緯度,経度,測量年月日,設置日,撤去日\n")
         for i_section in range(n_sections):
-            fout.write("水系,川,0000000000,地方整備局,事務所,出張所,左岸,"+"{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(stakes_left[i_section,1])+","+str(stakes_left[i_section,0])+",20010101,,\n")
-            fout.write("水系,川,0000000000,地方整備局,事務所,出張所,右岸,"+"{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(stakes_right[i_section,1])+","+str(stakes_right[i_section,0])+",20010101,,\n")
+            fout.write("水系,川,0000000000,地方整備局,事務所,出張所,左岸,"+"{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(stakes_left[i_section,1])+","+str(stakes_left[i_section,0])+",20010101,,\n")
+            fout.write("水系,川,0000000000,地方整備局,事務所,出張所,右岸,"+"{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(stakes_right[i_section,1])+","+str(stakes_right[i_section,0])+",20010101,,\n")
 else:
     if not os.path.exists("./output/oudan"):
         os.makedirs("./output/oudan")
     
     for i_section in range(n_sections):
-        with open ("./output/oudan/"+"{:.2f}".format(0.001*distance_between_sections*i_section)+"k.csv", "w") as fout:
-            fout.write("{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
+        with open ("./output/oudan/"+"{:.3f}".format(0.001*distance_between_sections*i_section)+"k.csv", "w") as fout:
+            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
             for j in range(len(sections_topography[i_section])):
                 fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
     
@@ -444,7 +444,7 @@ else:
         for i_section in range(n_sections):
             ly, lx = transformer_to_meter.transform(stakes_left[i_section,0], stakes_left[i_section,1])
             ry, rx = transformer_to_meter.transform(stakes_right[i_section,0], stakes_right[i_section,1])
-            fout.write("{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(lx)+","+str(ly)+","+str(rx)+","+str(ry)+"\n")
+            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(lx)+","+str(ly)+","+str(rx)+","+str(ry)+"\n")
 
 with open ("./output/elevation.csv", "w") as fout:
     fout.write("Distance,Riverbed,Water surface,Stake left,Stake right\n")
