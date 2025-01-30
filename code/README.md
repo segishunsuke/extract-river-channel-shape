@@ -48,8 +48,8 @@ H_i = \min \left[ \hat{H}_i, H_{i+1} - \eta_\mathrm{min} D \right] \quad (1 \le 
 ```
 と設定します．ここで，$`D`$(m)は隣り合う横断面間の距離です．$`\eta_\mathrm{min}>0`$は分析者により設定される定数であり，水面勾配の最小値を表します．こうして得られた$`H_i`$を，開水路の不等流計算の基礎式に代入して水深を計算します．
 
-[basic_parameters.csv](./basic_parameters.csv)のパラメータ，Minimum water surface slopeは$`m`$を，Number of samples for median calculationは$`\eta_\mathrm{min}`$を指します．
+[basic_parameters.csv](./basic_parameters.csv)のパラメータ，Minimum water surface slopeは$`\eta_\mathrm{min}`$を，Number of samples for median calculationは$`m`$を指します．
 
-このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，$`m`$に1000001（事実上∞）を，$`\eta_\mathrm{min}`$に10万分の1を設定しています．$`m`$と$`\eta_\mathrm{min}`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
+このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，$`\eta_\mathrm{min}`$に10万分の1を，$`m`$に1000001（事実上∞）を設定しています．$`\eta_\mathrm{min}`$と$`m`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
 
 粗度係数$`n`$の設定値には0.05を推奨します．
