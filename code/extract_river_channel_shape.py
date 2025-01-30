@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import numpy as np
 import csv
 import shapefile
@@ -26,10 +27,12 @@ adjust2 = float(data[10][1])  # tol2を何倍に調整するか
 adjust3 = float(data[11][1]) # tol3を何倍に調整するか
 distance_between_sections = float(data[12][1]) # 断面取得間隔[m]
 transverse_interval = float(data[13][1]) # 横断面のポイント間隔[m]
-difference_in_differential_equation = float(data[14][1]) # 不等流計算の差分間隔[m]
-roughness = float(data[15][1]) # 粗度係数
-minimum_slope_water = float(data[16][1]) # 水面勾配の最小値
-n_samples_for_median = int(data[17][1]) # 中央値を計算する際のサンプル数
+margin = float(data[14][1]) # 横断線の設定に当たり，左岸端・右岸端の外側に何メートルのマージンを設けるか
+iric_style = int(data[15][1]) # iRICで読み取れる形式で出力するか
+difference_in_differential_equation = float(data[16][1]) # 不等流計算の差分間隔[m]
+roughness = float(data[17][1]) # 粗度係数
+minimum_slope_water = float(data[18][1]) # 水面勾配の最小値
+n_samples_for_median = int(data[19][1]) # 中央値を計算する際のサンプル数
 if n_samples_for_median % 2 == 0:
     raise ValueError("n_samples_for_averagingには奇数を指定して下さい")
 
@@ -71,7 +74,7 @@ def get_distance_between_points_and_vectors(i): # 河川の中心線を構成す
 
 def rotate_vector(vector, center, theta): # 与えられた度表示のベクトルを反時計周りにthetaラジアン回転する 
     center_meter = np.zeros(2)
-    center_meter[0], center_meter[1] = transformer_to_meter.transform(center[0], center[1])    
+    center_meter[0], center_meter[1] = transformer_to_meter.transform(center[0], center[1])
     
     vector_meter = np.zeros(2)
     vector_meter[0], vector_meter[1] = transformer_to_meter.transform(center[0] + vector[0], center[1] + vector[1])
@@ -392,15 +395,15 @@ for i_section in range(n_sections):
     """
     杭の外側の範囲の切り取り
     水位より標高が低い点，堤防よりも標高が高い点，標高が不明の点がある場合，その点以降をカットする
-    また，杭から30m以上離れた点以降はカットする
+    また，杭からmargin[m]以上離れた点はカットする
     """
-    for j in range(j_stake_right, len(section_topography)):
-        if section_topography[j] < elevations_water[i_section] or section_topography[j] > stakes_right[i_section,2] or (j - j_stake_right) * transverse_interval > 30.0:
+    for j in range(j_stake_right+1, len(section_topography)):
+        if section_topography[j] < elevations_water[i_section] or section_topography[j] > stakes_right[i_section,2] or (j - j_stake_right) * transverse_interval >= margin + 1.0e-7:
             section_topography = section_topography[:j]
             break
     
-    for j in range(j_stake_left, -1, -1):
-        if section_topography[j] < elevations_water[i_section] or section_topography[j] > stakes_left[i_section,2]  or (j_stake_left - j) * transverse_interval > 30.0:
+    for j in range(j_stake_left-1, -1, -1):
+        if section_topography[j] < elevations_water[i_section] or section_topography[j] > stakes_left[i_section,2]  or (j_stake_left - j) * transverse_interval >= margin + 1.0e-7:
             js_center[i_section] -= j + 1 # 左岸側を切り取る場合はj座標の補正が必要
             js_stake_right[i_section] -= j + 1 # 左岸側を切り取る場合はj座標の補正が必要
             js_stake_left[i_section] -= j + 1 # 左岸側を切り取る場合はj座標の補正が必要
@@ -410,19 +413,40 @@ for i_section in range(n_sections):
     sections_topography[i_section] = section_topography
 
 print("河道縦横断データを出力します")
-with open ("oudan.csv", "w") as fout:
-    for i_section in range(n_sections):
-        fout.write(str(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
-        for j in range(len(sections_topography[i_section])):
-            fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
 
-with open ("kui.csv", "w") as fout:
-    fout.write("水系名,河川名,河川番号,地方整備局名,事務所名,管轄出張所名,左右岸,距離標名,緯度,経度,測量年月日,設置日,撤去日\n")
-    for i_section in range(n_sections):
-        fout.write("水系,川,0000000000,地方整備局,事務所,出張所,左岸,"+str(0.001*distance_between_sections*i_section)+","+str(stakes_left[i_section,1])+","+str(stakes_left[i_section,0])+",20010101,,\n")
-        fout.write("水系,川,0000000000,地方整備局,事務所,出張所,右岸,"+str(0.001*distance_between_sections*i_section)+","+str(stakes_right[i_section,1])+","+str(stakes_right[i_section,0])+",20010101,,\n")
+if not os.path.exists("output"):
+    os.makedirs("output")
 
-with open ("elevation.csv", "w") as fout:
+if not iric_style:
+    with open ("./output/oudan.csv", "w") as fout:
+        for i_section in range(n_sections):
+            fout.write("{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
+            for j in range(len(sections_topography[i_section])):
+                fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
+    
+    with open ("./output/kui.csv", "w") as fout:
+        fout.write("水系名,河川名,河川番号,地方整備局名,事務所名,管轄出張所名,左右岸,距離標名,緯度,経度,測量年月日,設置日,撤去日\n")
+        for i_section in range(n_sections):
+            fout.write("水系,川,0000000000,地方整備局,事務所,出張所,左岸,"+"{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(stakes_left[i_section,1])+","+str(stakes_left[i_section,0])+",20010101,,\n")
+            fout.write("水系,川,0000000000,地方整備局,事務所,出張所,右岸,"+"{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(stakes_right[i_section,1])+","+str(stakes_right[i_section,0])+",20010101,,\n")
+else:
+    if not os.path.exists("./output/oudan"):
+        os.makedirs("./output/oudan")
+    
+    for i_section in range(n_sections):
+        with open ("./output/oudan/"+"{:.2f}".format(0.001*distance_between_sections*i_section)+"k.csv", "w") as fout:
+            fout.write("{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
+            for j in range(len(sections_topography[i_section])):
+                fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
+    
+    with open ("./output/kui.csv", "w") as fout:
+        fout.write("K.P.,LX,LY,RX,RY\n")
+        for i_section in range(n_sections):
+            ly, lx = transformer_to_meter.transform(stakes_left[i_section,0], stakes_left[i_section,1])
+            ry, rx = transformer_to_meter.transform(stakes_right[i_section,0], stakes_right[i_section,1])
+            fout.write("{:.2f}".format(0.001*distance_between_sections*i_section)+","+str(lx)+","+str(ly)+","+str(rx)+","+str(ry)+"\n")
+
+with open ("./output/elevation.csv", "w") as fout:
     fout.write("Distance,Riverbed,Water surface,Stake left,Stake right\n")
     for i_section in range(n_sections):
         fout.write(str(0.001*distance_between_sections*i_section)+","+str(elevations_riverbed[i_section])+","+str(elevations_water[i_section])+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+"\n")
