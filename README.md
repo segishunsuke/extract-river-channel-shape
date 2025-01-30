@@ -315,9 +315,7 @@ DioVISTA/FloodではGoogle Mapと同様にして，マウスを用いた地図�
 
 完全な状態にするには，プログラムの出力ファイルであるsetting.csvを用いた調整が必要です．
 
-### 5-1. setting.csvの
+### 5-1. setting.csvの内容
 
-
-### 4-6. 河道縦横断データの確認
 
 
