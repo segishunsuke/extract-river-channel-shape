@@ -354,10 +354,10 @@ intermediate_result.csvを用いる利点は，プログラムの実行時間の
 
 Use intermediate resultに2を設定した場合には，標高データが追加的に必要になった場合に限り，DEMから標高が読み取られます．
 
-Use intermediate resultは，以下の場合分けに従って設定して下さい．
+Use intermediate resultは，**以下の場合分けに従って設定して下さい**．
 
 - 横断線の範囲設定に問題の無い横断面：Use intermediate resultをデフォルトの1のままにしておいて下さい．
-   - Flowの設定値のみを変更する場合もこのケースに該当します．Flowの設定値は河床標高の設定にのみ影響を与え，横断線の範囲設定には影響しません．
+   - Flowの設定値のみを変更する場合もこのケースに該当します．Flowの設定値は横断線の範囲設定には影響しません．
 - Left tol1-5とRight tol1-5を変更する横断面：Use intermediate resultを2に設定して下さい．
 - Angle adjustmentとLeft DEM, Right DEMを変更する横断面：Use intermediate resultを0に設定して下さい．
 
