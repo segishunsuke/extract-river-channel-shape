@@ -264,13 +264,13 @@ python extract_river_channel_shape.py
 iRIC styleが1の場合は，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（iRIC形式）
-- X.XXk.csv: 横断面別に地形データのcsvファイル，X.XXは距離標の数値です，outputフォルダ内のoudanという名前のサブフォルダ内に置かれます
+- oudan/X.XXk.csv: 距離標がX.XXkの横断面の地形データを記録したファイル
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
 iRIC styleが0の場合は，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（DioVISTA/Flood形式）
-- oudan.csv: 全横断面の地形データを格納したcsvファイル
+- oudan.csv: 全横断面の地形データを記録したcsvファイル
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
 X.XXk.csvとoudan.csvはどちらも国土交通省の河川定期縦横断データのフォーマットに従っています．
