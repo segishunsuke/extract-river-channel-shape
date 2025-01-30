@@ -356,10 +356,11 @@ Use intermediate resultに2を設定した場合には，標高データが追�
 
 **横断線の範囲設定に問題の無い横断面**については，Use intermediate resultをデフォルトの1のままにしておいて下さい．Flowの設定値のみを変更する場合もこのケースに該当します．Flowの設定値は河床標高の設定にのみ影響を与え，横断線の範囲設定には影響しません．
 
-**Left tol1-5とRight tol1-5を変更する場合**には，Use intermediate resultを2に設定して下さい．
+**Left tol1-5とRight tol1-5を変更する横断面**については，Use intermediate resultを2に設定して下さい．
 
-**Angle adjustmentとLeft DEM, Right DEMを変更する場合**には，Use intermediate resultを0に設定して下さい．これらの設定値を変更すると，前回の標高データの読み取り結果は使えなくなってしまいます．
+**Angle adjustmentとLeft DEM, Right DEMを変更する横断面**については，Use intermediate resultを0に設定して下さい．これらの設定値を変更すると，前回の標高データの読み取り結果は使えなくなってしまいます．
 
+### 5-3. 状況別の対応方法
 
 
 
