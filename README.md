@@ -231,9 +231,9 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 [code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，1に設定されています．
 
-#### 4-4-9. 水深の計算に利用されるパラメータ<a name="4-4-9"></a>
+#### 4-4-9. 河床標高の設定に利用されるパラメータ<a name="4-4-9"></a>
 
-以下の4つのパラメータは，DEMからは取得できない，水面下の地形の平均的な標高を推測するのに利用されます．
+以下の4つのパラメータは，DEMからは取得できない，水面下の河床標高を設定するのに利用されます．
 
 - Difference in differential equation
 - Roughness coefficient
@@ -261,12 +261,19 @@ python extract_river_channel_shape.py
 
 また，[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)の置かれているディレクトリに，outputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
 
-iRIC styleが
+iRIC styleが1の場合は，以下のcsvファイルが出力されます．
 
-- oudan.csv, kui.csv: 河道縦横断データ
+- kui.csv: 杭位置座標データのファイル（iRIC形式）
+- X.XXk.csv: 横断面別に地形データのcsvファイル，X.XXは距離標の数値です，outputフォルダ内のoudanという名前のサブフォルダ内に置かれます
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
-oudan.csv, kui.csvは国土交通省の河川定期縦横断データのフォーマットに従っています．
+iRIC styleが0の場合は，以下のcsvファイルが出力されます．
+
+- kui.csv: 杭位置座標データのファイル（DioVISTA/Flood形式）
+- oudan.csv: 全横断面の地形データを格納したcsvファイル
+- elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
+
+X.XXk.csvとoudan.csvはどちらも国土交通省の河川定期縦横断データのフォーマットに従っています．
 
 ### 4-6. 河道縦横断データの確認
 
