@@ -13,9 +13,9 @@
 
 プログラムの使用方法については，親フォルダの[README](../README.md)を見て下さい．
 
-### 水深の逆算方法
+### 河床標高の設定方法
 
-ここでは，[open_channel.py](./open_channel.py)に実装されている，水深の逆算方法を述べます．このプログラムは，広矩形単断面を持つ開水路の不等流計算の基礎式である，
+このプログラムが用いる，河床標高の設定方法を述べます．このプログラムは，広矩形単断面を持つ開水路の不等流計算の基礎式である，
 ```math
 \frac{dH}{dx} + \frac{1}{2g} \frac{d}{dx} \left( \frac{Q}{Bh} \right)^2 + \frac{n^2 Q^2}{B^2 h^{10/3}} = 0
 ```
@@ -49,13 +49,13 @@ H_i = \min \left[ \hat{H}_i, H_{i+1} - \eta_\mathrm{min} D \right] \quad (1 \le 
 と設定します．ここで，$`D`$(m)は隣り合う横断面間の距離です．$`\eta_\mathrm{min}>0`$はユーザーにより設定される定数であり，水面勾配の最小値を表します．こうして得られた$`H_i`$を，開水路の不等流計算の基礎式に代入して水深$`h_i`$を計算します．
 
 河床標高は$`H_i - h_i`$として評価できますが，この評価値は縦断方向に大きく変動します．そこで，$`H_i - h_i`$の中央値を取ることにより，平滑化処理をします．
-
 ```math
 \underline{z}_i = \mathrm{median} \big[ H_{i-r_s(i)} - h_{i-r_s(i)}, H_{i-r_s(i)+1} - h_{i-r_s(i)+1}, \cdots, H_{i+r_s(i)} - h_{i+r_s(i)} \big]
 ```
+$`\underline{z}_i`$が河床標高の設定値となります．
 
-[basic_parameters.csv](./basic_parameters.csv)のパラメータ，Minimum water surface slopeは$`\eta_\mathrm{min}`$を，Number of samples for median calculationは$`M`$を指します．$`M`$は河床標高の平滑化計算にも利用されます．
+[basic_parameters.csv](./basic_parameters.csv)のパラメータ，Minimum water surface slopeは$`\eta_\mathrm{min}`$を，Number of samples for median calculationは$`M`$を指します．
 
-このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，$`\eta_\mathrm{min}`$に10万分の1を，$`m`$に100万+1（事実上∞）を設定しています．$`\eta_\mathrm{min}`$と$`M`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
+このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，$`\eta_\mathrm{min}`$に10万分の1を，$`M`$に100万+1（事実上∞）を設定しています．$`\eta_\mathrm{min}`$と$`M`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
 
 粗度係数$`n`$の設定値には0.05を推奨します．この値の下では，石狩川下流にプログラムを適用したときに，実態に近い横断面形が得られることを確認しています．
