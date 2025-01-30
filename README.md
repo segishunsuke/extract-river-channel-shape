@@ -221,13 +221,13 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 [code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，30mに設定されています．
 
-#### 4-4-8. iRIC style
+#### 4-4-8. iRIC format
 
 河道縦横断データの出力形式を設定します．
 
-1の場合は，無償の河川シミュレーションソフトウェアである，[iRIC](https://i-ric.org/ja/)が読める形式になります．
+1の場合は，無償の河川シミュレーションソフトウェアである，[iRIC](https://i-ric.org/ja/)が読み込める形式になります．
 
-0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読める形式になります．
+0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読み込める形式になります．
 
 [code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，1に設定されています．
 
@@ -261,13 +261,13 @@ python extract_river_channel_shape.py
 
 また，extract_river_channel_shape.py](./code/extract_river_channel_shape.pyの置かれているディレクトリにoutputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
 
-iRIC styleが1の場合には，以下のcsvファイルが出力されます．
+iRIC formatが1の場合には，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（iRIC形式）
 - oudan/X.XXk.csv: 距離標がX.XXkの横断面の地形データを記録したファイル
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
-iRIC styleが0の場合には，以下のcsvファイルが出力されます．
+iRIC formatが0の場合には，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（DioVISTA/Flood形式）
 - oudan.csv: 全横断面の地形データを記録したcsvファイル
