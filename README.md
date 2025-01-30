@@ -338,7 +338,7 @@ DioVISTA/FloodではGoogle Mapと同様にして，マウスを用いた地図�
 
 setting.csvはプログラムを実行する度に上書きされます．setting.csvの編集にExcelを用いる場合には，上書き保存の後に，**setting.csvを閉じてからプログラムを実行して下さい**．setting.csvがExcelで開かれていると，プログラムがPermissionErrorを出して停止します．
 
-### 5-2. Use intermediate result
+### 5-2. Use intermediate resultの設定
 
 特定の横断面の横断線の範囲設定を調整する際には，その横断面のUse intermediate resultの設定値も変更して下さい．
 
