@@ -334,7 +334,7 @@ DioVISTA/FloodではGoogle Mapと同様にして，マウスを用いた地図�
 
 抽出された横断面の中に，横断線や断面形の設定が思わしくないものが存在する場合には，setting.csvの当該横断面のパラメータを変更して上書き保存し，再度，プログラムを実行して下さい．
 
-setting.csvはプログラムを実行する度に上書きされます．setting.csvの編集にExcelを用いる場合には，上書き保存の後に，setting.csvを**閉じてからプログラムを実行して下さい**．setting.csvがExcelで開かれていると，プログラムがsetting.csvを上書きできず，エラーを出して停止します．
+setting.csvはプログラムを実行する度に上書きされます．setting.csvの編集にExcelを用いる場合には，上書き保存の後に，**setting.csvを閉じてからプログラムを実行して下さい**．setting.csvがExcelで開かれていると，プログラムがsetting.csvを上書きできず，エラーを出して停止します．
 
 
 
