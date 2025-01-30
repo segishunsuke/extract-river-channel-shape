@@ -336,7 +336,7 @@ DioVISTA/FloodではGoogle Mapと同様にして，マウスを用いた地図�
 
 横断面によって平水流量が異なる場合には，setting.csvのFlowを横断面別に設定して上書き保存してから，プログラムを実行して下さい．これにより，横断面別の河床標高をより正確に設定できます．
 
-setting.csvはプログラムを実行する度に上書きされます．setting.csvの編集にExcelを用いる場合には，上書き保存の後に，**setting.csvを閉じてからプログラムを実行して下さい**．setting.csvがExcelで開かれていると，プログラムがsetting.csvを上書きできず，エラーを出して停止します．
+setting.csvはプログラムを実行する度に上書きされます．setting.csvの編集にExcelを用いる場合には，上書き保存の後に，**setting.csvを閉じてからプログラムを実行して下さい**．setting.csvがExcelで開かれていると，プログラムがPermissionErrorを出して停止します．
 
 ### 5-2. Use intermediate result
 
