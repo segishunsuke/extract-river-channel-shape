@@ -213,9 +213,27 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 "[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，1mに設定されています．
 
-#### 4-4-7. 水深の計算に利用されるパラメータ<a name="4-4-7"></a>
+#### 4-4-7. Margin
 
-以下の4つのパラメータは，DEMからは取得できない，水面下の地形の平均的な標高を見積もるのに利用されます．
+横断線を設定する際に，河道（右岸端・左岸端）の外側に取るマージンの上限（単位：m）です．
+
+上限値であるため，横断面によっては，この設定値よりも短いマージンしか取られないこともあります．
+
+"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，30mに設定されています．
+
+#### 4-4-8. iRIC style
+
+河道縦横断データの出力形式を設定します．
+
+1の場合は，無償の河川シミュレーションソフトウェアである，iRICが読める形式になります．
+
+0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，DioVISTA/Floodが読める形式になります．
+
+"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，1に設定されています．
+
+#### 4-4-9. 水深の計算に利用されるパラメータ<a name="4-4-7"></a>
+
+以下の4つのパラメータは，DEMからは取得できない，水面下の地形の平均的な標高を推測するのに利用されます．
 
 - Difference in differential equation
 - Roughness coefficient
