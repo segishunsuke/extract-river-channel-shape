@@ -225,9 +225,9 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 河道縦横断データの出力形式を設定します．
 
-1の場合は，無償の河川シミュレーションソフトウェアである，iRICが読める形式になります．
+1の場合は，無償の河川シミュレーションソフトウェアである，[iRIC](https://i-ric.org/ja/)が読める形式になります．
 
-0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，DioVISTA/Floodが読める形式になります．
+0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読める形式になります．
 
 "[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，1に設定されています．
 
