@@ -23,7 +23,7 @@ pip install pyproj
 
 ### 2-1. 河道中心線の抽出を行うプログラムの準備
 
-"[extract-centerline](./extract-centerline)"に格納されている以下の2つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
+[extract-centerline](./extract-centerline)に格納されている以下の2つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
 - [extract_centerline.py](./extract-centerline/extract_centerline.py)
 - [input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)
@@ -34,11 +34,11 @@ pip install pyproj
 
 [https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html](https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html)
 
-ダウンロードしたzipファイルに含まれている，W05-XX-XX.xmlという名前のファイルを"extract_centerline.py"の置かれたディレクトリに置いて下さい．
+ダウンロードしたzipファイルに含まれている，W05-XX-XX.xmlという名前のファイルをextract_centerline.pyの置かれたディレクトリに置いて下さい．
 
 ### 2-3. 河川コードの指定
 
-"input_extract_centerline.csv"を開き，二つの項目の設定を行ってから上書き保存して下さい．
+input_extract_centerline.csvを開き，二つの項目の設定を行ってから上書き保存して下さい．
 
 各項目の意味は以下の通りです．
 
@@ -49,11 +49,11 @@ pip install pyproj
 
 [https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html](https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html)
 
-このリポジトリに置かれている"[input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)"では，北海道の河川データのxmlファイルと，石狩川の河川コードが指定されています．
+このリポジトリに置かれている[input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)では，北海道の河川データのxmlファイルと，石狩川の河川コードが指定されています．
 
 ### 2-4. プログラムの実行<a name="2-4"></a>
 
-"[extract_centerline.py](./extract-centerline/extract_centerline.py)"を実行して下さい．
+[extract_centerline.py](./extract-centerline/extract_centerline.py)を実行して下さい．
 
 ```
 python extract_centerline.py
@@ -65,19 +65,19 @@ python extract_centerline.py
 
 ## 3. 河道縦横断データの抽出範囲の決定<a name="3"></a>
 
-[2-4](#2-4)で取得した"river_centerline.shp"をGISソフトウェアで開いて下さい．
+[2-4](#2-4)で取得したriver_centerline.shpをGISソフトウェアで開いて下さい．
 
-例として，石狩川の"river_centerline.shp"をQGISで開き，石狩川河川敷公園（座標：43.130921N, 141.533418E）付近を拡大表示したものを以下の図に示します．
+例として，石狩川のriver_centerline.shpをQGISで開き，石狩川河川敷公園（座標：43.130921N, 141.533418E）付近を拡大表示したものを以下の図に示します．
 
 <img src="./assets/images/river_points.png" width="400px">
 
-"river_centerline.shp"に格納されているポイントデータは，属性として"id"という識別番号を持ちます．
+river_centerline.shpに格納されているポイントデータは，属性としてidという識別番号を持ちます．
 
 識別番号は上流から下流に向けて昇順に並んでいます．
 
 上の図に示した石狩川の例では，2つのポイントデータの識別番号が表示されています．図の左（下流側）のポイントの識別番号は5981，右（上流側）のポイントの識別番号は5967です．
 
-"river_centerline.shp"のデータをGISソフトウェア上で閲覧しながら，河道縦横断データの抽出範囲を決めて下さい．
+river_centerline.shpのデータをGISソフトウェア上で閲覧しながら，河道縦横断データの抽出範囲を決めて下さい．
 
 抽出範囲を決めたら，その範囲の上流端のポイントの識別番号と，下流端のポイントの識別番号をメモして下さい．これらの識別番号は，河道縦横断データの抽出を行うプログラムに対して，抽出範囲を指示するために用いられます．
 
@@ -87,7 +87,7 @@ python extract_centerline.py
 
 ### 4-1. プログラムの準備
 
-"[code](./code)"に格納されている以下の4つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
+[code](./code)に格納されている以下の4つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
 
 - [extract_river_channel_shape.py](./code/extract_river_channel_shape.py)
 - [dem.py](./code/dem.py)
@@ -96,7 +96,7 @@ python extract_centerline.py
 
 ### 4-2. 河道中心線のデータの準備
 
-[2-4](#2-4)で取得した"river_centerline.shp"とその支援ファイルを"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
+[2-4](#2-4)で取得したriver_centerline.shpとその支援ファイルをextract_river_channel_shape.pyの置かれたディレクトリに置いて下さい．
 
 ### 4-3. DEMデータの準備
 
@@ -113,21 +113,21 @@ python extract_centerline.py
    - ファイルのダウンロードには基盤地図情報のサイトへのログインが必要です．アカウントは誰でも無料で作成できます．
    - ダウンロードするファイル数が多い場合には，ダウンロードファイルリストが複数ページに渡ることがあります．その場合には，ページごとに「このページをまとめてダウンロード」をクリックしなければいけません．
 
-ダウンロードしたzipファイルには，"FG-GML-XXXX-XX-DEM5X.zip"という名前のファイルが含まれています．これらのzipファイルを全て展開し，中に含まれている"FG-GML-XXXX-XX-XX-DEM5X-XXXXXXXX.xml"という名前のファイルを全て同一のフォルダに置いて下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
+ダウンロードしたzipファイルには，FG-GML-XXXX-XX-DEM5X.zipという名前のファイルが含まれています．これらのzipファイルを全て展開し，中に含まれているFG-GML-XXXX-XX-XX-DEM5X-XXXXXXXX.xmlという名前のファイルを全て同一のフォルダに置いて下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
 
-DEMのxmlファイルを置いたフォルダの名前を"elevation"とし，"extract_river_channel_shape.py"の置かれたディレクトリに置いて下さい．
+DEMのxmlファイルを置いたフォルダの名前をelevationとし，extract_river_channel_shape.pyの置かれたディレクトリに置いて下さい．
 
-ここまでの作業が完了し，"extract_river_channel_shape.py"の置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります．
+ここまでの作業が完了し，extract_river_channel_shape.pyの置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります．
 
 <img src="./assets/images/files.png">
 
 ### 4-4. 基本パラメータの設定
 
-"basic_parameters.csv"を開き，プログラムが使用する基本パラメータの設定を行って下さい．
+basic_parameters.csvを開き，プログラムが使用する基本パラメータの設定を行って下さい．
 
 csvファイルは18行2列のファイルで，各行が一つのパラメータに対応しています．1列目がパラメータ名，2列目がパラメータの設定値です．
 
-18個のパラメータのうち，対象の河道に応じて設定値を変えなければいけないのは，最初の4つです．その他のパラメータについては，"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"の設定値をそのまま用いても構いません．"[code](./code)"に格納されているファイルでは，石狩川の河道の，夕張川との合流部から河口までの範囲を想定してパラメータ設定が行われています．
+18個のパラメータのうち，対象の河道に応じて設定値を変えなければいけないのは，最初の4つです．その他のパラメータについては，[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値をそのまま用いても構いません．[code](./code)に格納されているファイルでは，石狩川の河道の，夕張川との合流部から河口までの範囲を想定してパラメータ設定が行われています．
 
 以下では，各パラメータの設定方法を整理します．
 
@@ -164,7 +164,7 @@ EPSGコードは"epsg:6680"のように記載して下さい．
 5. 「検索開始」をクリックします
 6. 観測所の年別平水流量が表示されます
 
-"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"のFlowには，石狩大橋観測所の1973年～2022年の平水流量の中央値が設定されています．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)のFlowには，石狩大橋観測所の1973年～2022年の平水流量の中央値が設定されています．
 
 対象の河道の平水流量のデータが入手できない場合には，平水流量と流域面積の比流量を仮定してFlowを設定して下さい．
 
@@ -197,7 +197,7 @@ tol1-3の自動調整に用いられるのが，tol4-5とadjust1-3です．tol1-
 
 tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3を掛け算することによって行われます．adjust1とadjust2には0より大きく1未満の定数を，adjust3には1よりも大きい定数を指定します．
 
-"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，以下の設定値を用いています：tol1 = 8m, tol2 = 2m, tol3 = 0.05, tol4 = 1,000m, tol5 = 30m, adjust1 = 0.9, adjust2 = 0.5, adjust3 = 1.1．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，以下の設定値を用いています：tol1 = 8m, tol2 = 2m, tol3 = 0.05, tol4 = 1,000m, tol5 = 30m, adjust1 = 0.9, adjust2 = 0.5, adjust3 = 1.1．
 
 後に[5](./README.md#5)で述べるように，tol1-5の設定値は横断面ごとにカスタマイズできます．
 
@@ -205,13 +205,13 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 このパラメータは，河道中心線に沿った，横断面の取得間隔（単位：m）です．
 
-"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，200mに設定されています．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，200mに設定されています．
 
 #### 4-4-6. Transverse interval
 
 このパラメータは，横断方向の標高取得間隔（単位：m）です．
 
-"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，1mに設定されています．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，1mに設定されています．
 
 #### 4-4-7. Margin
 
@@ -219,7 +219,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 上限値であるため，横断面によっては，この設定値よりも短いマージンしか取られないこともあります．
 
-"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，30mに設定されています．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，30mに設定されています．
 
 #### 4-4-8. iRIC style
 
@@ -229,7 +229,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読める形式になります．
 
-"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"では，1に設定されています．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，1に設定されています．
 
 #### 4-4-9. 水深の計算に利用されるパラメータ<a name="4-4-9"></a>
 
@@ -240,13 +240,13 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 - Minimum water surface slope
 - Number of samples for median calculation
 
-これらのパラメータには，"[code](./code)"に格納されている"[basic_parameters.csv](./code/basic_parameters.csv)"の設定値を用いて下さい．
+これらのパラメータには，[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値を用いて下さい．
 
-これらのパラメータの意味については，"[code](./code)"の[README](./code/README.md)を見て下さい．
+これらのパラメータの意味については，[code](./code)の[README](./code/README.md)を見て下さい．
 
 ### 4-5. プログラムの実行<a name="4-5"></a>
 
-"[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)"を実行して下さい．
+[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)を実行して下さい．
 
 ```
 python extract_river_channel_shape.py
@@ -254,14 +254,19 @@ python extract_river_channel_shape.py
 
 初回のプログラムの実行時間は非常に長いです．これは，DEMから標高を読み取るコードの遅さによるものです．
 
-プログラムが終了すると，以下のcsvファイルが出力されます．
+プログラムが終了すると，[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)の置かれているディレクトリに，以下のcsvファイルが出力されます．
 
 - intermediate_result.csv: DEMから読み取った標高の生データを横断面ごとに記録したファイル，編集しないで下さい
 - setting.csv: 横断面別に平水流量やtol1-5を設定するためのファイル
+
+また，[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)の置かれているディレクトリに，outputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
+
+iRIC styleが
+
 - oudan.csv, kui.csv: 河道縦横断データ
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
-"oudan.csv", "kui.csv"は国土交通省の河川定期縦横断データのフォーマットに従っています．
+oudan.csv, kui.csvは国土交通省の河川定期縦横断データのフォーマットに従っています．
 
 ### 4-6. 河道縦横断データの確認
 
@@ -279,7 +284,7 @@ python extract_river_channel_shape.py
 
 [4-5](./README.md#4-5)で抽出された河道縦横断データは，通常，不完全な状態です．
 
-完全な状態にするには，プログラムの出力ファイルである"setting.csv"を用いた調整が必要です．
+完全な状態にするには，プログラムの出力ファイルであるsetting.csvを用いた調整が必要です．
 
 ### 5-1. setting.csvの
 
