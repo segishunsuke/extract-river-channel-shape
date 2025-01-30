@@ -199,7 +199,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 [code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，以下の設定値を用いています：tol1 = 8m, tol2 = 2m, tol3 = 0.05, tol4 = 1,000m, tol5 = 30m, adjust1 = 0.9, adjust2 = 0.5, adjust3 = 1.1．
 
-後に[5](./README.md#5)で述べるように，tol1-5の設定値は横断面ごとにカスタマイズできます．
+後に[5](./README.md#5)で述べるように，tol1-5の設定値は横断面と左右岸ごとにカスタマイズできます．
 
 #### 4-4-5. Distance between sections
 
@@ -256,7 +256,7 @@ python extract_river_channel_shape.py
 
 プログラムが終了すると，extract_river_channel_shape.pyの置かれているディレクトリに，以下のcsvファイルが出力されます．
 
-- intermediate_result.csv: DEMから読み取った標高の生データを横断面ごとに記録したファイル，編集しないで下さい
+- intermediate_result.csv: DEMから読み取った標高データや横断線の範囲設定を記録したファイル（**編集しないで下さい**）
 - setting.csv: 横断面別に平水流量やtol1-5を設定するためのファイル
 
 また，extract_river_channel_shape.py](./code/extract_river_channel_shape.pyの置かれているディレクトリにoutputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
@@ -332,9 +332,34 @@ DioVISTA/FloodではGoogle Mapと同様にして，マウスを用いた地図�
 
 プログラムが出力したcsvファイルに記録されているパラメータの値は，プログラムが各横断面の横断線と断面形の設定に用いたものです．
 
-抽出された横断面の中に，横断線や断面形の設定が思わしくないものが存在する場合には，setting.csvの当該横断面のパラメータを変更して上書き保存し，再度，プログラムを実行して下さい．
+抽出された横断面の中に，横断線の範囲設定が思わしくないものが存在する場合には，setting.csvの当該横断面のパラメータを変更して上書き保存してから，プログラムを実行して下さい．これにより，当該横断面の横断線を修正できます．
+
+横断面によって平水流量が異なる場合には，setting.csvのFlowを横断面別に設定して上書き保存してから，プログラムを実行して下さい．これにより，横断面別の河床標高をより正確に設定できます．
 
 setting.csvはプログラムを実行する度に上書きされます．setting.csvの編集にExcelを用いる場合には，上書き保存の後に，**setting.csvを閉じてからプログラムを実行して下さい**．setting.csvがExcelで開かれていると，プログラムがsetting.csvを上書きできず，エラーを出して停止します．
+
+### 5-2. Use intermediate result
+
+setting.csvの特定の横断面のパラメータを変更する際には，その横断面のUse intermediate resultの設定値も変更して下さい．
+
+Use intermediate resultには0, 1, 2のいずれかを設定することができ，それぞれ以下の意味を持ちます．
+
+- 0: 当該横断面の標高データの読み取りを一からやり直します
+- 1: 当該横断面の標高データと横断線の範囲設定に，前回のプログラム実行時の結果を使います
+- 2: 当該横断面の横断線の範囲設定はやり直しますが，標高データには前回のプログラム実行時の結果を可能な限り使います
+
+前回のプログラム実行時の標高データと横断線の範囲設定は，プログラムが出力するintermediate_result.csvに記録されています．**このファイルは編集しないで下さい**．
+
+intermediate_result.csvを用いる利点は，プログラムの実行時間の短縮です．このプログラムのDEMから標高を読み取るコードは遅いため，前回のプログラム実行時の読み取り結果を可能な限り用いることにより，実行時間を短縮できます．
+
+Use intermediate resultに2を設定した場合には，標高データが追加的に必要になった場合に限り，DEMから標高が読み取られます．
+
+**横断線の範囲設定に問題の無い横断面**については，Use intermediate resultをデフォルトの1のままにしておいて下さい．Flowの設定値のみを変更する場合もこのケースに該当します．Flowの設定値は河床標高の設定にのみ影響を与え，横断線の範囲設定には影響しません．
+
+**Left tol1-5とRight tol1-5を変更する場合**には，Use intermediate resultを2に設定して下さい．
+
+**Angle adjustmentとLeft DEM, Right DEMを変更する場合**には，Use intermediate resultを0に設定して下さい．これらの設定値を変更すると，前回の標高データの読み取り結果は使えなくなってしまいます．
+
 
 
 
