@@ -277,15 +277,17 @@ X.XXk.csvとoudan.csvはどちらも国土交通省の河川定期縦横断デ�
 
 ### 4-6. 河道縦横断データの確認
 
-河道縦横断データの表示には，日立パワーソリューションズが開発した洪水シミュレータである，DioVISTA/Floodを推奨します．
+[iRIC](https://i-ric.org/ja/)もしくは[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)を用いて，抽出された河道縦横断データを確認して下さい．
 
-[https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)
+DioVISTA/Floodの方が確認を行いやすいです．DioVISTA/Floodは有償ソフトウェアですが，河道縦横断データの表示機能はFree Editionでも利用できます．
 
-このソフトウェアは，読み込んだ河道縦横断データを地図上に表示する機能を有しています．
+以下で各ソフトウェアを利用する場合の確認方法を述べます．
 
-この地図は地形や堤防の位置を表示しているため，抽出された河道縦横断データの妥当性を容易に確認できます．
+#### iRICを利用する場合
 
-このソフトウェアは有償ですが，河道縦横断データの表示機能は，無償のFree Editionでも使用できます．
+
+
+
 
 ## 5. 河道縦横断データの調整<a name="5"></a>
 
