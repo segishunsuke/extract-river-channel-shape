@@ -246,7 +246,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 ### 4-5. プログラムの実行<a name="4-5"></a>
 
-[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)を実行して下さい．
+extract_river_channel_shape.pyを実行して下さい．
 
 ```
 python extract_river_channel_shape.py
@@ -254,20 +254,20 @@ python extract_river_channel_shape.py
 
 初回のプログラムの実行時間は非常に長いです．これは，DEMから標高を読み取るコードの遅さによるものです．
 
-プログラムが終了すると，[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)の置かれているディレクトリに，以下のcsvファイルが出力されます．
+プログラムが終了すると，extract_river_channel_shape.pyの置かれているディレクトリに，以下のcsvファイルが出力されます．
 
 - intermediate_result.csv: DEMから読み取った標高の生データを横断面ごとに記録したファイル，編集しないで下さい
 - setting.csv: 横断面別に平水流量やtol1-5を設定するためのファイル
 
-また，[extract_river_channel_shape.py](./code/extract_river_channel_shape.py)の置かれているディレクトリに，outputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
+また，extract_river_channel_shape.py](./code/extract_river_channel_shape.pyの置かれているディレクトリにoutputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
 
-iRIC styleが1の場合は，以下のcsvファイルが出力されます．
+iRIC styleが1の場合には，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（iRIC形式）
 - oudan/X.XXk.csv: 距離標がX.XXkの横断面の地形データを記録したファイル
 - elevation.csv: 河床，水面，左岸端，右岸端の標高を縦断方向に記録したファイル
 
-iRIC styleが0の場合は，以下のcsvファイルが出力されます．
+iRIC styleが0の場合には，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（DioVISTA/Flood形式）
 - oudan.csv: 全横断面の地形データを記録したcsvファイル
@@ -281,9 +281,13 @@ X.XXk.csvとoudan.csvはどちらも国土交通省の河川定期縦横断デ�
 
 DioVISTA/Floodの方が確認を行いやすいです．DioVISTA/Floodは有償ソフトウェアですが，河道縦横断データの表示機能はFree Editionでも利用できます．
 
-以下で各ソフトウェアを利用する場合の確認方法を述べます．
+以下で各ソフトウェアにおける確認方法を述べます．
 
-#### iRICを利用する場合
+#### iRIC
+
+1. Nays2D Floodなど，適当なソルバーを選んでプロジェクトを開始する
+2. メニューバーから「ファイル」→「プロパティ」を選び，「座標系」の「編集」をクリックする
+3. basic_parameters.csvのPlane rectangular coordinate systemで設定した平面直角座標系を選択する
 
 
 
