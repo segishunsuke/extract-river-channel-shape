@@ -28,7 +28,7 @@ adjust3 = float(data[11][1]) # tol3を何倍に調整するか
 distance_between_sections = float(data[12][1]) # 断面取得間隔[m]
 transverse_interval = float(data[13][1]) # 横断面のポイント間隔[m]
 margin = float(data[14][1]) # 横断線の設定に当たり，左岸端・右岸端の外側に何メートルのマージンを設けるか
-iric_style = int(data[15][1]) # iRICで読み取れる形式で出力するか
+iric_format = int(data[15][1]) # iRICで読み取れる形式で出力するか
 difference_in_differential_equation = float(data[16][1]) # 不等流計算の差分間隔[m]
 roughness = float(data[17][1]) # 粗度係数
 minimum_slope_water = float(data[18][1]) # 水面勾配の最小値
@@ -417,7 +417,7 @@ print("河道縦横断データを出力します")
 if not os.path.exists("output"):
     os.makedirs("output")
 
-if not iric_style:
+if not iric_format:
     with open ("./output/oudan.csv", "w") as fout:
         for i_section in range(n_sections):
             fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
