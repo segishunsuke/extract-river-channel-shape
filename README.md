@@ -392,7 +392,7 @@ Use intermediate resultに2を設定した場合には，標高データが追�
 
 ただし，下の図のケースのように，川のすぐ横に市街地があるような場所もあり，このような場所においては，適切な箇所で横断線を止める必要があります．
 
-<img src="./assets/images/case3.png" width="200px">
+<img src="./assets/images/case3.png" width="300px">
 
 台形型の堤防が存在しない横断面において，横断線を「適切な箇所」で止めるには，以下の対応を行って下さい．
 
