@@ -367,7 +367,7 @@ Use intermediate resultに2を設定した場合には，標高データが追�
 
 #### 横断線が堤防まで届いていない
 
-<img src="./assets/images/case1.png">
+<img src="./assets/images/case1.png" width="400px">
 
 上の図のように横断線が堤防まで届いていないケースでは，以下のいずれか，もしくは両方を行って下さい．
 
