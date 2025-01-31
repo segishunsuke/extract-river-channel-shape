@@ -261,7 +261,7 @@ python extract_river_channel_shape.py
 - intermediate_result.csv: DEMから読み取った標高データや横断線の範囲設定を記録したファイル（**編集しないで下さい**）
 - setting.csv: 横断面別に平水流量やtol1-5を設定するためのファイル
 
-また，extract_river_channel_shape.py](./code/extract_river_channel_shape.pyの置かれているディレクトリにoutputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
+また，[extract_river_channel_shape.py](./code/extract_river_channel_shape.pyの置かれているディレクトリにoutputという名前のフォルダが作られ，その中に河道縦横断データが出力されます．
 
 iRIC formatが1の場合には，以下のcsvファイルが出力されます．
 
