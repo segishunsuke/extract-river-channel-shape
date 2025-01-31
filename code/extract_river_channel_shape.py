@@ -420,7 +420,7 @@ if not os.path.exists("output"):
 if not iric_format:
     with open ("./output/oudan.csv", "w") as fout:
         for i_section in range(n_sections):
-            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
+            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,-9999,0,20010101,0000000000,水系,川\n")
             for j in range(len(sections_topography[i_section])):
                 fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
     
@@ -435,7 +435,7 @@ else:
     
     for i_section in range(n_sections):
         with open ("./output/oudan/"+"{:.3f}".format(0.001*distance_between_sections*i_section)+"k.csv", "w") as fout:
-            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,0,0,20010101,0000000000,水系,川\n")
+            fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(distance_between_sections)+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+",-9999,-9999,"+str(len(sections_topography[i_section]))+",-9999,-9999,-9999,-9999,0,20010101,0000000000,水系,川\n")
             for j in range(len(sections_topography[i_section])):
                 fout.write("0,"+str(1.0*(j - js_stake_left[i_section]))+","+str(sections_topography[i_section][j])+"\n")
     
