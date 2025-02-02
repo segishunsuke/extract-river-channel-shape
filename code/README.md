@@ -25,8 +25,8 @@
 
 - Difference in differential equation: 上記微分方程式を$`x`$軸方向に離散化する際の差分間隔(m)
 - Roughness coefficient: 粗度係数$`n`$
-- Minimum water surface slope: DEMから水面の標高$`H`$を推測する際に利用
-- Number of samples for median calculation: DEMから水面の標高$`H`$を推測する際に利用
+- Minimum water surface slope: DEMから水面の標高$`H`$を推定する際に利用
+- Number of samples for median calculation: DEMから水面の標高$`H`$を推定する際に利用
 
 [extract_river_channel_shape.py](./extract_river_channel_shape.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推測します．
 
