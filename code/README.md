@@ -28,7 +28,7 @@
 - Minimum water surface slope: DEMから水面の標高$`H`$を推定する際に利用
 - Number of samples for median calculation: DEMから水面の標高$`H`$を推定する際に利用
 
-[extract_river_channel_shape.py](./extract_river_channel_shape.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推測します．
+[extract_river_channel_shape.py](./extract_river_channel_shape.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推定します．
 
 まず，各横断面$`i`$について，堤外地の最小の標高値を水面の標高の近似値と見なし，$`\tilde{H}_i`$とします．そのうえで，複数の横断面について，$`\tilde{H}_i`$の中央値を取ることにより，近似誤差の影響を抑えます．
 ```math
