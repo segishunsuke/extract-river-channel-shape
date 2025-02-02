@@ -444,6 +444,6 @@ setting.csvを事前に作成する場合，ファイル中の横断面の数は
 
 ### 6-1. 石狩川（河川コード：8101030001）河口部～夕張川合流部
 
-[ishikari-gawa](.example/ishikari-gawa)
+[ishikari-gawa](./examples/ishikari-gawa)
 
 
