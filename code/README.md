@@ -6,7 +6,7 @@
 
 - [extract_river_channel_shape.py](./extract_river_channel_shape.py): プログラムの本体
 - [dem.py](./dem.py): 数値標高モデルから標高を読み取るサブプログラム
-- [open_channel.py](./open_channel.py): 開水路の不等流計算の基礎式を用いて水深を逆算するサブプログラム
+- [open_channel.py](./open_channel.py): 開水路の不等流計算の基礎式を用いて水深を計算するサブプログラム
 - [basic_parameters.csv](./basic_parameters.csv): extract_river_channel_shape.pyで用いられるパラメータの設定ファイル
 
 以上の4つのファイルは全て同一のディレクトリに置かれる必要があります．
