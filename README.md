@@ -440,4 +440,10 @@ setting.csvを事前に作成する場合，ファイル中の横断面の数は
 
 ## 6. 適用事例<a name="6"></a>
 
-いくつかの適用事例について，
+いくつかの適用事例について，河道縦横断データの抽出に用いたbasic_parameters.csvと，調整済みのsetting.csvを公開します．
+
+### 6-1. 石狩川（河川コード：8101030001）河口部～夕張川合流部
+
+[ishikari-gawa](.example/ishikari-gawa)
+
+
