@@ -447,8 +447,8 @@ else:
             fout.write("{:.3f}".format(0.001*distance_between_sections*i_section)+","+str(lx)+","+str(ly)+","+str(rx)+","+str(ry)+"\n")
 
 with open ("./output/elevation.csv", "w") as fout:
-    fout.write("Distance,Riverbed,Water surface,Stake left,Stake right\n")
+    fout.write("Distance,Riverbed,Water surface,Water Edge,Stake left,Stake right\n")
     for i_section in range(n_sections):
-        fout.write(str(0.001*distance_between_sections*i_section)+","+str(elevations_riverbed[i_section])+","+str(elevations_water[i_section])+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+"\n")
+        fout.write(str(0.001*distance_between_sections*i_section)+","+str(elevations_riverbed[i_section])+","+str(elevations_water[i_section])+","+str(elevations_water_tmp[i_section])+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+"\n")
 
 print("プログラムの実行が完了しました")
