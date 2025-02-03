@@ -1,0 +1,20 @@
+Plane rectangular coordinate system,epsg:6674
+Initial point ID,1669
+Terminal point ID,1865
+Flow [m3/s],13.07
+tol1 [m],5
+tol2 [m],2
+tol3,0.05
+tol4 [m],750
+tol5 [m],30
+adjust1,0.9
+adjust2,0.5
+adjust3,1.1
+Distance between sections [m],200
+Transverse interval [m],1
+Margin [m],30
+iRIC format,1
+Difference in differential equation [m],1
+Roughness coefficient,0.05
+Minimum water surface slope,0.00001
+Number of samples for median calculation,1000001
