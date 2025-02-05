@@ -6,7 +6,7 @@ tol1 [m],8
 tol2 [m],2
 tol3,0.05
 tol4 [m],1000
-tol5 [m],20
+tol5 [m],30
 adjust1,0.9
 adjust2,0.5
 adjust3,1.1
