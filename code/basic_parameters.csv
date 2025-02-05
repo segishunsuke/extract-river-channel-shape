@@ -10,7 +10,7 @@ tol5 [m],30
 adjust1,0.9
 adjust2,0.5
 adjust3,1.1
-Distance between sections [m],200
+Distance between sections [m],100
 Transverse interval [m],1
 Margin [m],30
 iRIC format,0
