@@ -207,7 +207,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 このパラメータは，河道中心線に沿った，横断面の取得間隔（単位：m）です．
 
-[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，200mに設定されています．
+[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)では，100mに設定されています．
 
 #### 4-4-6. Transverse interval
 
