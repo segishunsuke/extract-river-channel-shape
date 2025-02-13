@@ -451,4 +451,31 @@ with open ("./output/elevation.csv", "w") as fout:
     for i_section in range(n_sections):
         fout.write(str(0.001*distance_between_sections*i_section)+","+str(elevations_riverbed[i_section])+","+str(elevations_water[i_section])+","+str(elevations_water_tmp[i_section])+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+"\n")
 
+w = shapefile.Writer("river_channel")
+w.shapeType = shapefile.POLYLINE
+w.field('name', 'C')
+points = []
+for i_section in range(n_sections):
+    points.append((stakes_left[i_section,0], stakes_left[i_section,1]))
+w.line([points])
+w.record("Left")
+points = []
+for i_section in range(n_sections):
+    points.append((stakes_right[i_section,0], stakes_right[i_section,1]))
+w.line([points])
+w.record("Right")
+for i_section in range(n_sections):
+    dlon_dj = (stakes_right[i_section,0] - stakes_left[i_section,0]) / (js_stake_right[i_section] - js_stake_left[i_section])
+    dlat_dj = (stakes_right[i_section,1] - stakes_left[i_section,1]) / (js_stake_right[i_section] - js_stake_left[i_section])
+    points = []
+    points.append((stakes_left[i_section,0] + (0 - js_stake_left[i_section]) * dlon_dj, stakes_left[i_section,1] + (0 - js_stake_left[i_section]) * dlat_dj))
+    points.append((stakes_left[i_section,0] + (len(sections_topography[i_section]) - 1 - js_stake_left[i_section]) * dlon_dj, stakes_left[i_section,1] + (len(sections_topography[i_section]) - 1 - js_stake_left[i_section]) * dlat_dj))
+    w.line([points])
+    w.record("{:.3f}".format(0.001*distance_between_sections*i_section)+"k")
+w.close()
+
+fout = open ('river_channel.prj', 'w')
+fout.write('GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]')
+fout.close()
+
 print("プログラムの実行が完了しました")
