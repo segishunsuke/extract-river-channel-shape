@@ -266,14 +266,16 @@ python extract_river_channel_shape.py
 iRIC formatが1の場合には，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（iRIC形式）
-- oudan/X.XXXk.csv: 距離標がX.XXXkの横断面の地形データを記録したファイル
-- elevation.csv: 河床，水面，水際，左岸端，右岸端の標高を縦断方向に記録したファイル
+- oudan/X.XXXk.csv: 距離標がX.XXXkの横断面の地形データを記録したcsvファイル
+- elevation.csv: 河床，水面，水際，左岸端，右岸端の標高を縦断方向に記録したcsvファイル
+- river_channel.shpとその補助ファイル: 左岸端を結んだ線，右岸端を結んだ線，各横断面の横断線を記録したシェープファイル
 
 iRIC formatが0の場合には，以下のcsvファイルが出力されます．
 
 - kui.csv: 杭位置座標データのファイル（DioVISTA/Flood形式）
 - oudan.csv: 全横断面の地形データを記録したcsvファイル
-- elevation.csv: 河床，水面，水際，左岸端，右岸端の標高を縦断方向に記録したファイル
+- elevation.csv: 河床，水面，水際，左岸端，右岸端の標高を縦断方向に記録したcsvファイル
+- river_channel.shpとその補助ファイル: 左岸端を結んだ線，右岸端を結んだ線，各横断面の横断線を記録したシェープファイル
 
 X.XXXk.csvとoudan.csvはどちらも国土交通省の河川定期縦横断データのフォーマットに従っています．
 
@@ -284,6 +286,8 @@ elevation.csvの水際の標高とは，横断面の堤外地におけるDEM上�
 [iRIC](https://i-ric.org/ja/)もしくは[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)を用いて，抽出された河道縦横断データを確認して下さい．
 
 DioVISTA/Floodの方が確認を行いやすいです．DioVISTA/Floodは有償ソフトウェアですが，河道縦横断データの表示機能はFree Editionでも利用できます（シミュレーションは有償版でなければ行えません）．
+
+各横断面の横断線のみを確認したい場合には，river_channel.shpを，[QGIS](https://qgis.org/)などのGISソフトウェアで開いて下さい．
 
 以下に各ソフトウェアにおける確認方法を述べます．
 
@@ -312,6 +316,18 @@ iRICではマウスを用いて地図の移動と拡大縮小を行えますが�
 DioVISTA/FloodではGoogle Mapと同様にして，マウスを用いた地図の移動と拡大縮小を行えます．
 
 特定の横断面の地形を確認したい場合には，プロジェクトウィンドウで対象の河川を右クリックし，「断面図表示」を有効にして下さい．
+
+#### 4-6-3. QGIS
+
+国土地理院の地理院地図には，堤防などの盛土の範囲が示されているため，抽出された横断線の範囲の妥当性を確認する際に便利です．
+
+以下のWebサイトを参考に，地理院地図をQGISのレイヤに追加して下さい．
+
+[https://qgis.mierune.co.jp/posts/howto_1_add_xyztiles](https://qgis.mierune.co.jp/posts/howto_1_add_xyztiles)
+
+QGISには「再読み込み」機能があります．これはシェープファイルが更新されている場合に，表示される地物の情報をそれに合わせて更新する機能です．
+
+この機能は，[5](./README.md#5)で横断線を対話的に調整する際に便利です．
 
 ## 5. 河道縦横断データの調整<a name="5"></a>
 
@@ -438,7 +454,7 @@ setting.csvを事前に作成するメリットはさほどありませんが，
 
 setting.csvを事前に作成する場合，ファイル中の横断面の数は，プログラムが作成する横断面の数以下でなければいけません．また，Use intermediate resultは全て0に設定されなければいけません．
 
-[6](./README.md)の適用事例では，特定の河道について，完成形の河道縦横断データが得られるような，調整済みのsetting.csvを公開しています．
+[6](./README.md#6)の適用事例では，特定の河道について，完成形の河道縦横断データが得られるような，調整済みのsetting.csvを公開しています．
 
 ## 6. 適用事例<a name="6"></a>
 
