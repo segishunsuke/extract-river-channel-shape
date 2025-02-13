@@ -451,7 +451,7 @@ with open ("./output/elevation.csv", "w") as fout:
     for i_section in range(n_sections):
         fout.write(str(0.001*distance_between_sections*i_section)+","+str(elevations_riverbed[i_section])+","+str(elevations_water[i_section])+","+str(elevations_water_tmp[i_section])+","+str(stakes_left[i_section,2])+","+str(stakes_right[i_section,2])+"\n")
 
-w = shapefile.Writer("river_channel")
+w = shapefile.Writer("./output/river_channel")
 w.shapeType = shapefile.POLYLINE
 w.field('name', 'C')
 points = []
@@ -474,7 +474,7 @@ for i_section in range(n_sections):
     w.record("{:.3f}".format(0.001*distance_between_sections*i_section)+"k")
 w.close()
 
-fout = open ('river_channel.prj', 'w')
+fout = open ('./output/river_channel.prj', 'w')
 fout.write('GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]')
 fout.close()
 
