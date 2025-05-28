@@ -95,12 +95,15 @@ python extract_centerline.py
 
 ### 4-1. プログラムの準備
 
-[code](./code)に格納されている以下の4つのファイルをダウンロードし，同一のディレクトリに置いて下さい．
+[code](./code)に格納されている以下の7つのファイルを全てダウンロードし，同一のディレクトリに置いて下さい．
 
-- [extract_river_channel_shape.py](./code/extract_river_channel_shape.py)
+- [gui_main.py](./code/gui_main.py)
+- [river_extractor.py](./code/river_extractor.py)
+- [basic_parameters.csv](./code/basic_parameters.csv)
 - [dem.py](./code/dem.py)
 - [open_channel.py](./code/open_channel.py)
-- [basic_parameters.csv](./code/basic_parameters.csv)
+- [rotation.py](./code/rotation.py)
+- [flow_accumulation_area.py](./code/flow_accumulation_area.py)
 
 ### 4-2. 河道中心線のデータの準備
 
