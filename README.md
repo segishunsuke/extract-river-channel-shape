@@ -236,7 +236,7 @@ tol1-3の自動調整に用いられるのが，tol4-5とadjust1-3です．tol1-
 - 現在地点が河道中心線からtol4(m)以上離れている
 - 現在地点の標高が，最低の標高よりもtol5(m)以上高い
 
-tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3を掛け算することによって行われます．adjust1-3にはデフォルト値を推奨します．
+tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3を掛け算することによって行われます．adjust1-3には[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値を推奨します．
 
 後に[5](./README.md#5)で述べるように，tol1-5の設定値は横断面と左右岸ごとにカスタマイズできます．
 
@@ -262,25 +262,23 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読み込める形式になります．
 
-#### 4-6-10. 河床標高の設定に利用されるパラメータ<a name="4-4-9"></a>
+#### 4-6-10. 河床標高の設定に利用されるパラメータ
 
-以下の4つのパラメータは，DEMからは取得できない，水面下の河床標高を設定するのに利用されます．
+以下の4つのパラメータは，DEMからは取得できない，水面下の河床標高を設定するのに利用されます．詳細については，[code](./code)の[README](./code/README.md)を見て下さい．
 
 - Difference in differential equation
 - Roughness coefficient
 - Minimum water surface slope
 - Number of samples for median calculation
 
-これらのパラメータにはデフォルト値を推奨します．
+これらのパラメータには[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値を推奨します．
 
-これらのパラメータの意味については，[code](./code)の[README](./code/README.md)を見て下さい．
+### 4-7. GUIの起動
 
-### 4-5. プログラムの実行<a name="4-5"></a>
-
-extract_river_channel_shape.pyを実行して下さい．
+gui_main.pyを実行して下さい．
 
 ```
-python extract_river_channel_shape.py
+python gui_main.py
 ```
 
 初回のプログラムの実行時間は非常に長いです．これは，DEMから標高を読み取るコードの遅さによるものです．
