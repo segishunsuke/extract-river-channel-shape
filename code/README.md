@@ -4,12 +4,15 @@
 
 格納されているファイルの内容は以下の通りです．
 
-- [extract_river_channel_shape.py](./extract_river_channel_shape.py): プログラムの本体
+- [gui_main.py](./gui_main.py): プログラムの本体を操作するためのGUI
+- [river_extractor.py](./river_extractor.py): プログラムの本体
+- [basic_parameters.csv](./basic_parameters.csv): river_extractor.pyで用いられるパラメータの設定ファイル
 - [dem.py](./dem.py): 数値標高モデルから標高を読み取るサブプログラム
 - [open_channel.py](./open_channel.py): 開水路の不等流計算の基礎式を用いて水深を計算するサブプログラム
-- [basic_parameters.csv](./basic_parameters.csv): extract_river_channel_shape.pyで用いられるパラメータの設定ファイル
+- [rotation.py](./rotation.py): 交差している横断面の判定と，横断面の回転による交差の解消を担うサブプログラム
+- [flow_accumulation_area.py](./flow_accumulation_area.py): 日本域表面流向マップを用いて，横断面別の上流集水面積を計算するサブプログラム
 
-以上の4つのファイルは全て同一のディレクトリに置かれる必要があります．
+以上の7つのファイルは全て同一のディレクトリに置かれる必要があります．
 
 プログラムの使用方法については，親フォルダの[README](../README.md)を見て下さい．
 
@@ -28,7 +31,7 @@
 - Minimum water surface slope: DEMから水面の標高$`H`$を推定する際に利用
 - Number of samples for median calculation: DEMから水面の標高$`H`$を推定する際に利用
 
-[extract_river_channel_shape.py](./extract_river_channel_shape.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推定します．
+[river_extractor.py](./river_extractor.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推定します．
 
 まず，各横断面$`i`$について，堤外地の最小の標高値を水面の標高の近似値と見なし，$`\tilde{H}_i`$とします．そのうえで，複数の横断面について，$`\tilde{H}_i`$の中央値を取ることにより，近似誤差の影響を抑えます．
 ```math
@@ -58,4 +61,4 @@ $`\underline{z}_i`$が河床標高の設定値となります．
 
 このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，$`\eta_\mathrm{min}`$に10万分の1を，$`M`$に100万+1（事実上∞）を設定しています．$`\eta_\mathrm{min}`$と$`M`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
 
-粗度係数$`n`$の設定値には0.05を推奨します．この値の下では，石狩川下流にプログラムを適用したときに，実態に近い横断面形が得られることを確認しています．
+粗度係数$`n`$の設定値には，現実の河床材料の粒径に基づく数値を用いるのではなく，0.05を用いることを推奨します．この値の下では，石狩川下流にプログラムを適用したときに，実態に近い横断面形が得られることを確認しています．
