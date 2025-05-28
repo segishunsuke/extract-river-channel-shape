@@ -10,7 +10,7 @@
 - [dem.py](./dem.py): 数値標高モデルから標高を読み取るサブプログラム
 - [open_channel.py](./open_channel.py): 開水路の不等流計算の基礎式を用いて水深を計算するサブプログラム
 - [rotation.py](./rotation.py): 交差している横断面の判定と，横断面の回転による交差の解消を担うサブプログラム
-- [flow_accumulation_area.py](./flow_accumulation_area.py): 日本域表面流向マップを用いて，横断面別の上流集水面積を計算するサブプログラム
+- [flow_accumulation_area.py](./flow_accumulation_area.py): [日本域表面流向マップ](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)を用いて，横断面別の上流集水面積を計算するサブプログラム
 
 以上の7つのファイルは全て同一のディレクトリに置かれる必要があります．
 
