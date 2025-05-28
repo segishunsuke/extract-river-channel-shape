@@ -260,7 +260,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 
 0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読み込める形式になります．
 
-#### 4-6-10. 河床標高の設定に利用されるパラメータ
+#### 4-6-10. 河床標高の推定に利用されるパラメータ
 
 以下の4つのパラメータは，DEMからは取得できない，水面下の河床標高を設定するのに利用されます．詳細については，[code](./code)の[README](./code/README.md)を見て下さい．
 
