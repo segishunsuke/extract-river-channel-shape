@@ -128,15 +128,35 @@ python extract_centerline.py
 5. 「ダウンロードファイルリスト」の「まとめてダウンロード」をクリックする
    - ファイルのダウンロードには国土地理院のサイトへのログインが必要です．アカウントは誰でも無料で作成できます．
 
-ダウンロードしたzipファイルには，FG-GML-XXXX-XX-DEM5X.zipという名前のファイルが含まれています．これらのzipファイルを全て展開し，中に含まれているFG-GML-XXXX-XX-XX-DEM5X-XXXXXXXX.xmlという名前のファイルを全て同一のフォルダに置いて下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
+ダウンロードしたzipファイルには，FG-GML-XXXXXX-DEM5X-XXXXXXXX.zipという名前のファイルが含まれています．これらのzipファイルを全て展開し，中に含まれているFG-GML-XXXX-XX-XX-DEM5X-XXXXXXXX.xmlという名前のファイルを全て同一のフォルダに置いて下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
 
 DEMのxmlファイルを置いたフォルダの名前をelevationとし，river_extractor.pyの置かれたディレクトリに置いて下さい．
 
-ここまでの作業が完了し，river_extractor.pyの置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります．
+### 4-4. 上流集水面積データの準備（任意）
+
+本手法は，DEMからは得られない水面下の水深を推定するために，横断面別の平水流量の設定を必要とします．
+
+横断面別の平水流量の設定には，J-FlwDir: Japan Flow Direction Map / 日本域表面流向マップの上流集水面積のデータを利用できます．
+
+[https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)
+
+このデータを利用したい場合には、ダウンロードして下さい．利用しない場合には，ダウンロードは不要です．
+
+ダウンロードするにはユーザー登録が必要です．ユーザー登録は誰でも無料で行えます．
+
+ユーザー登録を完了したら，「Data Download / ダウンロード」セクションの「Flow Accumulation Area / 上流集水面積」のupa_v1.4.tarをダウンロードして下さい．
+
+[7-zip](https://7-zip.opensource.jp/)の「展開」機能などを用いて，upa_v1.4.tarを展開して下さい．
+
+展開すると，日本全国のメッシュ別上流集水面積を記録したtifファイルを含む，upaという名前のフォルダが出てきます．このupaという名前のフォルダを，リネームせずに，river_extractor.pyの置かれたディレクトリに置いて下さい
+
+### 4-5. ファイルの確認
+
+ここまでの作業が完了し，river_extractor.pyの置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります．上流集水面積データを利用しない場合には，upaという名前のフォルダは不要です．
 
 <img src="./assets/images/files.png">
 
-### 4-4. 基本パラメータの設定
+### 4-6. 基本パラメータの設定
 
 basic_parameters.csvを開き，プログラムが使用する基本パラメータの設定を行って下さい．
 
