@@ -110,7 +110,7 @@ python extract_centerline.py
 
 下記URLから，河道縦横断データの抽出範囲を含む，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）をダウンロードして下さい．
 
-[https://fgd.gsi.go.jp/download/menu.php](https://fgd.gsi.go.jp/download/menu.php)
+[https://service.gsi.go.jp/kiban/](https://service.gsi.go.jp/kiban/)
 
 ダウンロードの手順は以下の通りです．
 
