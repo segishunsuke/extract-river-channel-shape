@@ -4,7 +4,7 @@
 
 ## 1. 必要なライブラリのインストール
 
-このプログラムを用いるには，以下の2件のPythonライブラリが必要です．
+このプログラムを用いるには，以下の3件のPythonライブラリが必要です．
 
 - [PyShp](https://pypi.org/project/pyshp/)
 - [Pyproj](https://github.com/pyproj4/pyproj)
