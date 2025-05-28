@@ -236,7 +236,7 @@ tol1-3の自動調整に用いられるのが，tol4-5とadjust1-3です．tol1-
 - 現在地点が河道中心線からtol4(m)以上離れている
 - 現在地点の標高が，最低の標高よりもtol5(m)以上高い
 
-tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3を掛け算することによって行われます．adjust1-3には，デフォルト値のadjust1 = 0.9, adjust2 = 0.5, adjust3 = 1.1を推奨します．
+tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3を掛け算することによって行われます．adjust1-3にはデフォルト値を推奨します．
 
 後に[5](./README.md#5)で述べるように，tol1-5の設定値は横断面と左右岸ごとにカスタマイズできます．
 
@@ -251,8 +251,6 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 #### 4-6-8. Margin
 
 横断線を設定する際に，河道（右岸端・左岸端）の外側に取るマージンの上限（単位：m）です．
-
-上限値であるため，横断面によっては，この設定値よりも短いマージンしか取られないことがあります．
 
 河道外の地形を完全に切り捨てたい場合には，0mに設定して下さい．ただし，**最終的な成果を得るまでは，30mなど，大きめの数値に設定することを推奨します**．
 
@@ -273,7 +271,7 @@ tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3
 - Minimum water surface slope
 - Number of samples for median calculation
 
-これらのパラメータには，[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値を推奨します．
+これらのパラメータにはデフォルト値を推奨します．
 
 これらのパラメータの意味については，[code](./code)の[README](./code/README.md)を見て下さい．
 
