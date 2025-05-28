@@ -281,7 +281,7 @@ gui_main.pyを実行して下さい．
 python gui_main.py
 ```
 
-<img src="./assets/images/gui.png" width="400px">
+<img src="./assets/images/gui.png">
 
 初回のプログラムの実行時間は非常に長いです．これは，DEMから標高を読み取るコードの遅さによるものです．
 
