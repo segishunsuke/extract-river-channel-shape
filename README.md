@@ -71,7 +71,7 @@ python extract_centerline.py
 
 [2-4](#2-4)で取得したriver_centerline.shpを[QGIS](https://qgis.org/)で開き，記録されているポイントデータを閲覧して下さい．
 
-まず，GGISのレイヤとして地理院地図を使える状態にない場合には，以下のWebサイトを参考に，地理院地図をQGISのレイヤに追加して下さい．
+まず，QGISのレイヤとして地理院地図を使える状態にない場合には，以下のWebサイトを参考に，地理院地図をQGISのレイヤに追加して下さい．
 
 [https://qgis.mierune.co.jp/posts/howto_1_add_xyztiles](https://qgis.mierune.co.jp/posts/howto_1_add_xyztiles)
 
@@ -84,7 +84,8 @@ python extract_centerline.py
 
 属性データは以下の手順で確認できます．
 
-1. メニューバーから「ビュー」→「地物情報を表示」を有効にする
+1. ツールバーの<img src="./assets/images/info_icon.png">をクリックする
+   - もしくはメニューバーから「ビュー」→「地物情報を表示」を有効にする
 2. 属性データを確認したいポイントをクリックする
 
 ポイントデータをGISソフトウェア上で閲覧しながら，河道縦横断データの抽出範囲を決めて下さい．
