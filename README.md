@@ -558,4 +558,4 @@ Clear Crossingsが1の状態で河道横断面抽出を行うと，横断面の�
 
 いくつかの適用事例について，河道縦横断データの抽出に用いたbasic_parameters.csvと，調整済みのsetting.csvを公開します．
 
-#### [石狩川（北海道，河川コード：8101030001）河口部～神居古潭100m間隔](./examples/ishikari-gawa-100m)
+#### [石狩川（北海道，河川コード：8101030001）河口部～神居古潭100m間隔](./examples/ishikari-gawa)
