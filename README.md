@@ -598,8 +598,6 @@ Clear Crossingsが1の状態で河道横断面抽出を行うと，横断面の�
 
 横断面抽出が完了すると，settings.csvのAngle adjustmentに回転が反映されます．
 
-<img src="./assets/images/editangle.png">
-
 以下の図は，先ほどの例の回転後の様子です．横断面の交差が解消されていることが確認できます．回転された横断面の左岸端・右岸端は不適切な位置にあることがあります．その場合には，当該横断面の左岸端・右岸端の再調整を実行して下さい．
 
 <img src="./assets/images/case5b.png">
