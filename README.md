@@ -57,7 +57,7 @@ input_extract_centerline.csvを開き，二つの項目の設定を行ってか�
 
 [https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html](https://nlftp.mlit.go.jp/ksj/gml/codelist/RiverCodeCd.html)
 
-このリポジトリに置かれている[input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)では，北海道の河川データのxmlファイルと，石狩川の河川コードが指定されています．
+extract-centerlineに格納されている[input_extract_centerline.csv](./extract-centerline/input_extract_centerline.csv)では，北海道の河川データのxmlファイルと，石狩川の河川コードが指定されています．
 
 ### 2-4. プログラムの実行<a name="2-4"></a>
 
