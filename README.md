@@ -218,13 +218,19 @@ EPSGコードは"epsg:6680"のように記載して下さい．
 
 対象の河道の平水流量のデータが入手できない場合には，平水流量と上流集水面積の比を仮定し，Flowを設定して下さい．上流集水面積のデータは，[J-FlwDir](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)から得られます．[4-4](#4-4)でダウンロードしたtifファイルをQGISで開けば，任意の地点の上流集水面積を確認できます．
 
-#### 4-6-4. Clear Crossings
+#### 4-6-4. Estimate water depth
+
+DEMからは得られない水深を推定するかどうかを設定します（0：推定しない，1：推定する）．
+
+**初回実行時は0にして下さい**．
+
+#### 4-6-5. Clear Crossings
 
 横断面の交差を解消するための回転を行うかどうかを設定します（0：回転しない，1：回転する）．
 
 **初回実行時は0にして下さい**．
 
-#### 4-6-5. tol1-5, adjust1-3
+#### 4-6-6. tol1-3
 
 これらのパラメータは左岸端・右岸端の位置設定に利用されます．
 
@@ -240,38 +246,43 @@ EPSGコードは"epsg:6680"のように記載して下さい．
 
 標高読み取りの停止後，最高の標高を有する地点が右岸端となります．
 
-以上の横断線の範囲設定方法から確認できるように，tol1-3は対象の河道周辺の地形に応じて設定されることが望ましいです．
+#### 4-6-7. tol4-5, adjust1-3
 
-- tol1は河道の平均的な堤防の高さより低い水準に設定して下さい．
-- tol2は堤内地側から見た堤防の高さより低い水準に設定して下さい．人工堤防が存在しない区間においては0に設定して下さい．
-- tol3は0.1以上に設定して下さい．堤内地の地形の起伏が激しい区間においては，1以上が適切になることがあります．
+tol1-3の自動調整に用いられるのが，tol4-5とadjust1-3です．
 
-ただし，このプログラムはtol1-3の値を自動調整するため，tol1-3の設定値が多少不適切でも対応可能です．
-
-tol1-3の自動調整に用いられるのが，tol4-5とadjust1-3です．tol1-3の設定値が不適切だと，標高の読み取りが永久に終わらない可能性があります．そこで，以下の2つの条件のいずれかが満たされたときには，tol1-3の設定値を調整したうえで，標高の読み取りを河道中心線からやり直します．
+tol1-3の設定値が不適切だと，標高の読み取りが永久に終わらない可能性があります．そこで，以下の2つの条件のいずれかが満たされたときには，tol1-3の設定値を調整したうえで，標高の読み取りを河道中心線からやり直します．
 
 - 現在地点が河道中心線からtol4(m)以上離れている
 - 現在地点の標高が，最低の標高よりもtol5(m)以上高い
 
 tol1, tol2, tol3の設定値の調整は，それぞれadjust1, adjust2, adjust3を掛け算することによって行われます．
 
-adjust1-3には[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値を推奨します．
+#### 4-6-8. DEM type
 
-#### 4-6-6. Distance between sections
+標準的に使用するDEMを記載します．
+
+- DEM5A: Aと記載して下さい
+- DEM5B: Bと記載して下さい
+- DEM5C: Cと記載して下さい
+- DEM1A: 1Aと記載して下さい
+
+Aと記載しておけば，DEM5Aが利用できれば5Aを，利用できない場合は5Bを，5Bも利用できない場合は5Cを，という具合に，自動的に利用するDEMを変更します．よって，5mメッシュDEMを用いる場合には，基本的にAと記載しておけば問題ありません．
+
+#### 4-6-9. Distance between sections
 
 このパラメータは，河道中心線に沿った，横断面の取得間隔（単位：m）です．
 
-#### 4-6-7. Transverse interval
+#### 4-6-10. Transverse interval
 
 このパラメータは，横断方向の標高取得間隔（単位：m）です．
 
-#### 4-6-8. Margin
+#### 4-6-11. Margin
 
 横断線を設定する際に，河道（右岸端・左岸端）の外側に取るマージンの上限（単位：m）です．
 
 河道外の地形を完全に切り捨てたい場合には，0mに設定して下さい．
 
-#### 4-6-9. iRIC format
+#### 4-6-12. iRIC format
 
 河道縦横断データの出力形式を設定します．
 
@@ -279,16 +290,16 @@ adjust1-3には[code](./code)に格納されている[basic_parameters.csv](./co
 
 0の場合は，日立パワーソリューションズが開発した有償の洪水シミュレータである，[DioVISTA/Flood](https://www.hitachi-power-solutions.com/service/digital/diovista/flood/index.html)が読み込める形式になります．
 
-#### 4-6-10. 水深の推定に利用されるパラメータ
+#### 4-6-13. 水深の推定に利用されるパラメータ
 
-以下の4つのパラメータは，DEMからは取得できない，水深を推定するのに利用されます．詳細については，[code](./code)の[README](./code/README.md)を見て下さい．
+以下の6つのパラメータは，DEMからは取得できない，水深を推定するのに利用されます．詳細については，[code](./code)の[README](./code/README.md)を見て下さい．
 
+- Water surface tolerance
 - Difference in differential equation
 - Roughness coefficient
 - Minimum water surface slope
-- Number of samples for median calculation
-
-これらのパラメータには[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値を推奨します．
+- Number of samples for median water surface
+- Number of samples for median riverbed
 
 ### 4-7. GUI
 
