@@ -119,7 +119,11 @@ python extract_centerline.py
 
 ### 4-3. DEMデータの準備
 
-下記URLから，河道縦横断データの抽出範囲を含む，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C），もしくは，1mメッシュDEMデータ（DEM1A）をダウンロードして下さい．
+このPythonプログラムは，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）と1mメッシュDEMデータ（DEM1A）の双方に対応しています．ただし，DEM1Aは未整備の地域も多いため，利用可能かどうかは国土地理院のWebサイトで確認して下さい．
+
+[https://service.gsi.go.jp/kiban/app/help/#digital_elevation_model](https://service.gsi.go.jp/kiban/app/help/#digital_elevation_model)
+
+5mメッシュDEMと1mメッシュDEMのどちらを利用するか決めたら，河道縦横断データの抽出範囲を含むDEMデータを，下記URLからダウンロードして下さい．
 
 [https://service.gsi.go.jp/kiban/](https://service.gsi.go.jp/kiban/)
 
@@ -134,13 +138,11 @@ python extract_centerline.py
 
 ダウンロードしたzipファイルには，FG-GML-XXXXXX-DEMXX-XXXXXXXX.zipという名前のファイルが含まれています（Xには数字もしくはA, B, Cが入ります）．これらのzipファイルを全て展開して下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
 
-中に含まれているFG-GML-XXXX-XX-XX-DEMXX-XXXXXXXX.xmlという名前のファイルを全て同一のフォルダに置いて下さい．フォルダの内容は以下の図のようになります．
+中に含まれているFG-GML-XXXX-XX-XX-DEMXX-XXXXXXXX.xmlという名前のファイルを全て同一のフォルダに置き，フォルダの名前をelevationとして下さい．elevationフォルダの内容は以下の図のようになります．
 
 <img src="./assets/images/elevation_folder.png">
 
-Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
-
-DEMのxmlファイルを置いたフォルダの名前をelevationとし，river_extractor.pyの置かれたディレクトリに置いて下さい．
+elevationフォルダはriver_extractor.pyの置かれたディレクトリに置いて下さい．
 
 ### 4-4. 上流集水面積データの準備（任意）<a name="4-4"></a>
 
