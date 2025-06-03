@@ -25,8 +25,9 @@
 ```
 を用いています．ここで，$`H`$は水面標高(m)を，$`x`$は河道の縦断距離(m)（上流側を正に取る）を，$`g`$は重力加速度(m/s$`^2`$)を，$`Q`$は流量(m$`^3`$/s)を，$`B`$は横断方向の水面の幅(m)を，$`h`$は水深(m)を，$`n`$は粗度係数(m$`^{-1/3}`$s)を表します．各横断面における水面の幅$`B`$と，水面標高$`H`$は，DEMから推定することができます．よって，各横断面における平水流量$`Q`$を与えれば，この微分方程式を用いて，各横断面における未知の水深$`h`$を計算できます．
 
-親フォルダの[READMEの4-4-9](../README.md#4-4-9)にて挙げられている，[basic_parameters.csv](./basic_parameters.csv)の5つのパラメータは，この微分方程式に関するものです．
+親フォルダの[READMEの4-6-13](../README.md#4-6-13)にて挙げられている，[basic_parameters.csv](./basic_parameters.csv)の6つのパラメータは，この微分方程式に関するものです．
 
+- Water surface tolerance: 最小標高から何mまでの範囲を水面と見なすか
 - Difference in differential equation: 上記微分方程式を$`x`$軸方向に離散化する際の差分間隔(m)
 - Roughness coefficient: 粗度係数$`n`$
 - Minimum water surface slope: 水面標高の勾配の最小値$`\eta_\mathrm{min}`$
