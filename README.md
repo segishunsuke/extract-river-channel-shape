@@ -98,12 +98,13 @@ python extract_centerline.py
 
 ### 4-1. プログラムの準備
 
-[code](./code)に格納されている以下の7つのファイルを全てダウンロードし，同一のディレクトリに置いて下さい．
+[code](./code)に格納されている以下の8つのファイルを全てダウンロードし，同一のディレクトリに置いて下さい．
 
 - [gui_main.py](./code/gui_main.py)
 - [river_extractor.py](./code/river_extractor.py)
 - [basic_parameters.csv](./code/basic_parameters.csv)
 - [dem.py](./code/dem.py)
+- [dem1a.py](./code/dem1a.py)
 - [open_channel.py](./code/open_channel.py)
 - [rotation.py](./code/rotation.py)
 - [flow_accumulation_area.py](./code/flow_accumulation_area.py)
@@ -114,7 +115,7 @@ python extract_centerline.py
 
 ### 4-3. DEMデータの準備
 
-下記URLから，河道縦横断データの抽出範囲を含む，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）をダウンロードして下さい．
+下記URLから，河道縦横断データの抽出範囲を含む，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C），もしくは，1mメッシュDEMデータ（DEM1A）をダウンロードして下さい．
 
 [https://service.gsi.go.jp/kiban/](https://service.gsi.go.jp/kiban/)
 
