@@ -29,20 +29,20 @@
 
 - Difference in differential equation: 上記微分方程式を$`x`$軸方向に離散化する際の差分間隔(m)
 - Roughness coefficient: 粗度係数$`n`$
-- Minimum water surface slope: 水面標高の勾配の最小値
-- Number of samples for median water surface: 水面標高を平滑化する際に利用
-- Number of samples for median riverbed: 河床標高を平滑化する際に利用
+- Minimum water surface slope: 水面標高の勾配の最小値$`\eta_\mathrm{min}`$
+- Number of samples for median water surface: 水面標高を平滑化する際に利用する横断面数$`M_1`$
+- Number of samples for median riverbed: 河床標高を平滑化する際に利用$する横断面数`M_2`$
 
 [river_extractor.py](./river_extractor.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推定します．
 
-まず，各横断面$`i`$について，堤外地の最小の標高値を水面の標高の近似値と見なし，$`\tilde{H}_i`$とします．そのうえで，複数の横断面について，$`\tilde{H}_i`$の中央値を取ることにより，近似誤差の影響を抑えます．
+まず，各横断面$`i`$について，堤外地の最小の標高値を水面標高と見なし，$`\tilde{H}_i`$とします．そのうえで，複数の横断面について，$`\tilde{H}_i`$の中央値を取ることにより，平滑化を行います．
 ```math
-\hat{H}_i = \mathrm{median} \left[ \tilde{H}_{i-r_s(i)}, \tilde{H}_{i-r_s(i)+1}, \cdots, \tilde{H}_{i+r_s(i)} \right]
+\hat{H}_i = \mathrm{median} \left[ \tilde{H}_{i-r_1(i)}, \tilde{H}_{i-r_1(i)+1}, \cdots, \tilde{H}_{i+r_1(i)} \right]
 ```
 ```math
-r_s(i) = \min \left[ M \div 2 , N - i, i - 1 \right]
+r_1(i) = \min \left[ M_1 \div 2 , N - i, i - 1 \right]
 ```
-ここで，$`r_s(i)`$は，中央値の計算に用いる横断面を，横断面$`i`$の前後それぞれにいくつ設けるのかを表します．$`M \ge 1`$はユーザーにより設定される奇数の定数です．$`N`$は横断面の総数です．横断面1は最下流の横断面，横断面$`N`$は最上流の横断面とします．対象の河道の上流端と下流端では，横断面$`i`$の前後に$`M \div 2`$個の横断面を設けられないため，それよりも少ない個数の横断面を用いて中央値が計算されます．
+ここで，$`r_1(i)`$は，中央値の計算に用いる横断面を，横断面$`i`$の前後それぞれにいくつ設けるのかを表します．$`M_1 \ge 1`$はユーザーにより設定される奇数の定数です．$`N`$は横断面の総数です．横断面1は最下流の横断面，横断面$`N`$は最上流の横断面とします．対象の河道の上流端と下流端では，横断面$`i`$の前後に$`M_1 \div 2`$個の横断面を設けられないため，それよりも少ない個数の横断面を用いて中央値が計算されます．
 
 $`\hat{H}_i`$を用いても，下流側の水面標高が上流側の水面標高よりも高くなることがあります．そこで，水面の標高が河道を下るのに伴い単調に減少するように，
 ```math
@@ -55,12 +55,11 @@ H_i = \min \left[ \hat{H}_i, H_{i+1} - \eta_\mathrm{min} D \right] \quad (1 \le 
 
 河床標高は$`H_i - h_i`$として評価できますが，この評価値は縦断方向に大きく変動します．そこで，$`H_i - h_i`$の中央値を取ることにより，平滑化処理をします．
 ```math
-\underline{z}_i = \mathrm{median} \big[ H_{i-r_s(i)} - h_{i-r_s(i)}, H_{i-r_s(i)+1} - h_{i-r_s(i)+1}, \cdots, H_{i+r_s(i)} - h_{i+r_s(i)} \big]
+\underline{z}_i = \mathrm{median} \big[ H_{i-r_2(i)} - h_{i-r_2(i)}, H_{i-r_2(i)+1} - h_{i-r_2(i)+1}, \cdots, H_{i+r_2(i)} - h_{i+r_2(i)} \big]
 ```
-$`\underline{z}_i`$が河床標高の設定値となります．
+```math
+r_2(i) = \min \left[ M_2 \div 2 , N - i, i - 1 \right]
+```
+$`\underline{z}_i`$が河床標高の設定値となります．$`M_2 \ge 1`$はユーザーにより設定される奇数の定数です．
 
-[basic_parameters.csv](./basic_parameters.csv)のパラメータ，Minimum water surface slopeは$`\eta_\mathrm{min}`$を，Number of samples for median calculationは$`M`$を指します．
-
-このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，$`\eta_\mathrm{min}`$に10万分の1を，$`M`$に100万+1（事実上∞）を設定しています．$`\eta_\mathrm{min}`$と$`M`$にはこれらのデフォルト値を用いることを推奨します．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
-
-粗度係数$`n`$の設定値には，現実の河床材料の粒径に基づく数値を用いるのではなく，0.05を用いることを推奨します．この値の下では，石狩川下流にプログラムを適用したときに，実態に近い横断面形が得られることを確認しています．
+このフォルダに置かれている[basic_parameters.csv](./basic_parameters.csv)では，粗度係数$`n`$に0.03を，$`\eta_\mathrm{min}`$に10万分の1を，$`M_1`$に11を，$`M_2`$に100万1（事実上∞）を設定しています．$`\eta_\mathrm{min}`$の設定値を変える場合，ゼロにはできないことに注意して下さい．ゼロにすると∞の水深が発生して計算が停止することがあります．
