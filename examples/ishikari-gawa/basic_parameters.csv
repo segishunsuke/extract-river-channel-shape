@@ -1,0 +1,25 @@
+Plane rectangular coordinate system,epsg:6680
+Initial point ID,3120
+Terminal point ID,6323
+Estimate water depth,1
+Clear Crossings,1
+Flow [m3/s],300
+tol1 [m],8
+tol2 [m],4
+tol3,0.1
+tol4 [m],2000
+tol5 [m],30
+DEM type,A
+Distance between sections [m],100
+Transverse interval [m],1
+Margin [m],30
+iRIC format,1
+adjust1,0.9
+adjust2,0.5
+adjust3,1.1
+Water surface tolerance [m],1
+Difference in differential equation [m],1
+Roughness coefficient,0.03
+Minimum water surface slope,0.00001
+Number of samples for median water surface,11
+Number of samples for median riverbed,1000001
