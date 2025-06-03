@@ -172,16 +172,16 @@ elevationフォルダはriver_extractor.pyの置かれたディレクトリに�
 
 basic_parameters.csvを開き，プログラムが使用する基本パラメータの設定を行って下さい．
 
-csvファイルは21行2列のファイルで，各行が一つのパラメータに対応しています．1列目がパラメータ名，2列目がパラメータの設定値です．
+csvファイルは25行2列のファイルで，各行が一つのパラメータに対応しています．1列目がパラメータ名，2列目がパラメータの設定値です．
 
-21個のパラメータのうち，ユーザーが必ず設定しなければいけないのは，以下の4つです．
+25個のパラメータのうち，ユーザーが必ず設定しなければいけないのは，以下の4つです．
 
 - Plane rectangular coordinate system
 - Initial point ID
 - Terminal point ID
 - Flow
 
-この他のパラメータについては，[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値をそのまま用いても構いません．
+この他のパラメータについては，[code](./code)に格納されている[basic_parameters.csv](./code/basic_parameters.csv)の設定値をそのまま用いて構いません．
 
 以下では，各パラメータの設定方法を整理します．
 
