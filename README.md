@@ -40,6 +40,10 @@ pip install rasterio
 
 ダウンロードしたzipファイルに含まれている，W05-XX-XX.xmlという名前のファイルをextract_centerline.pyの置かれたディレクトリに置いて下さい．
 
+ディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります
+
+<img src="./assets/images/centerline.png">
+
 ### 2-3. 河川コードの指定
 
 input_extract_centerline.csvを開き，二つの項目の設定を行ってから上書き保存して下さい．
