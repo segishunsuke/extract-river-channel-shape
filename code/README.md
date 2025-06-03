@@ -38,7 +38,7 @@
 
 まず，各横断面$`i`$について，堤外地の最小標高を水面標高と見なし，$`\tilde{H}_i`$とします．そのうえで，複数の横断面について，$`\tilde{H}_i`$の中央値を取ることにより，平滑化を行います．
 ```math
-\hat{H}_i = \mathrm{median} \left[ \tilde{H}_{i-r_1(i)}, \tilde{H}_{i-r_1(i)+1}, \cdots, \tilde{H}_{i+r_1(i)} \right]
+\hat{H}_i = \mathrm{median} \left[ \tilde{H}_{i-r_1(i)}, \cdots, \tilde{H}_{i+r_1(i)} \right]
 ```
 ```math
 r_1(i) = \min \left[ M_1 \div 2 , N - i, i - 1 \right]
@@ -63,7 +63,7 @@ $`\Delta_i`$のデフォルト値はWater surface toleranceです．以上の対
 
 以上により得られた$`H_i`$, $`B_i`$を，開水路の不等流計算の基礎式に代入して水深$`h_i`$を計算します．河床標高は$`H_i - h_i`$として評価できますが，この評価値は縦断方向に大きく変動します．そこで，$`H_i - h_i`$の中央値を取ることにより，平滑化処理をします．
 ```math
-\underline{z}_i = \mathrm{median} \big[ H_{i-r_2(i)} - h_{i-r_2(i)}, H_{i-r_2(i)+1} - h_{i-r_2(i)+1}, \cdots, H_{i+r_2(i)} - h_{i+r_2(i)} \big]
+\underline{z}_i = \mathrm{median} \big[ H_{i-r_2(i)} - h_{i-r_2(i)}, \cdots, H_{i+r_2(i)} - h_{i+r_2(i)} \big]
 ```
 ```math
 r_2(i) = \min \left[ M_2 \div 2 , N - i, i - 1 \right]
