@@ -7,12 +7,13 @@
 - [gui_main.py](./gui_main.py): プログラムの本体を操作するためのGUI
 - [river_extractor.py](./river_extractor.py): プログラムの本体
 - [basic_parameters.csv](./basic_parameters.csv): river_extractor.pyで用いられるパラメータの設定ファイル
-- [dem.py](./dem.py): 数値標高モデルから標高を読み取るサブプログラム
+- [dem.py](./dem.py): 基盤地図情報5mメッシュDEM（DEM5A, DEM5B, DEM5C）から標高を読み取るサブプログラム
+- [dem1a.py](./dem1a.py): 基盤地図情報1mメッシュDEM（DEM1A）から標高を読み取るサブプログラム
 - [open_channel.py](./open_channel.py): 開水路の不等流計算の基礎式を用いて水深を計算するサブプログラム
 - [rotation.py](./rotation.py): 交差している横断面の判定と，横断面の回転による交差の解消を担うサブプログラム
 - [flow_accumulation_area.py](./flow_accumulation_area.py): [日本域表面流向マップ](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)を用いて，横断面別の上流集水面積を計算するサブプログラム
 
-以上の7つのファイルは全て同一のディレクトリに置かれる必要があります．
+以上の8つのファイルは全て同一のディレクトリに置かれる必要があります．
 
 プログラムの使用方法については，親フォルダの[README](../README.md)を見て下さい．
 
@@ -22,14 +23,15 @@
 ```math
 \frac{dH}{dx} + \frac{1}{2g} \frac{d}{dx} \left( \frac{Q}{Bh} \right)^2 + \frac{n^2 Q^2}{B^2 h^{10/3}} = 0
 ```
-を用いています．ここで，$`H`$は水面の標高(m)を，$`x`$は河道の縦断距離(m)（上流側を正に取る）を，$`g`$は重力加速度(m/s$`^2`$)を，$`Q`$は流量(m$`^3`$/s)を，$`B`$は横断方向の水面の幅(m)を，$`h`$は水深(m)を，$`n`$は粗度係数(m$`^{-1/3}`$s)を表します．各横断面における水面の幅$`B`$と，水面の標高$`H`$は，DEMから推定することができます．よって，各横断面における平水流量$`Q`$を与えれば，この微分方程式を用いて，各横断面における未知の水深$`h`$を計算できます．
+を用いています．ここで，$`H`$は水面標高(m)を，$`x`$は河道の縦断距離(m)（上流側を正に取る）を，$`g`$は重力加速度(m/s$`^2`$)を，$`Q`$は流量(m$`^3`$/s)を，$`B`$は横断方向の水面の幅(m)を，$`h`$は水深(m)を，$`n`$は粗度係数(m$`^{-1/3}`$s)を表します．各横断面における水面の幅$`B`$と，水面標高$`H`$は，DEMから推定することができます．よって，各横断面における平水流量$`Q`$を与えれば，この微分方程式を用いて，各横断面における未知の水深$`h`$を計算できます．
 
-親フォルダの[READMEの4-4-9](../README.md#4-4-9)にて挙げられている，[basic_parameters.csv](./basic_parameters.csv)の4つのパラメータは，この微分方程式に関するものです．
+親フォルダの[READMEの4-4-9](../README.md#4-4-9)にて挙げられている，[basic_parameters.csv](./basic_parameters.csv)の5つのパラメータは，この微分方程式に関するものです．
 
 - Difference in differential equation: 上記微分方程式を$`x`$軸方向に離散化する際の差分間隔(m)
 - Roughness coefficient: 粗度係数$`n`$
-- Minimum water surface slope: DEMから水面の標高$`H`$を推定する際に利用
-- Number of samples for median calculation: DEMから水面の標高$`H`$を推定する際に利用
+- Minimum water surface slope: 水面標高の勾配の最小値
+- Number of samples for median water surface: 水面標高を平滑化する際に利用
+- Number of samples for median riverbed: 河床標高を平滑化する際に利用
 
 [river_extractor.py](./river_extractor.py)は，以下の手順に従い，DEMから水面の標高$`H`$を推定します．
 
