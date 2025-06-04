@@ -4,7 +4,7 @@
 
 プログラムについての問い合わせは，下記のメールアドレスにお願いします．
 
-<img src="./assets/images/mail.png" width="100px">
+<img src="./assets/images/mail.png" width="200px">
 
 ## 1. 必要なライブラリのインストール
 
