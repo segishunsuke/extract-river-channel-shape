@@ -2,7 +2,7 @@ Plane rectangular coordinate system,epsg:6680
 Initial point ID,5862
 Terminal point ID,6321
 Estimate water depth,0
-Clear Crossings,0
+Clear crossings,0
 Flow [m3/s],335.635
 tol1 [m],5
 tol2 [m],2
