@@ -42,7 +42,7 @@ pip install rasterio
 
 [https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html](https://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-W05.html)
 
-ダウンロードしたzipファイルに含まれている，W05-XX-XX.xmlという名前のファイルをextract_centerline.pyの置かれたディレクトリに置いて下さい．
+ダウンロードしたzipファイルに含まれている，W05-XXXXX.xmlという名前のファイルをextract_centerline.pyの置かれたディレクトリに置いて下さい．
 
 ディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります
 
