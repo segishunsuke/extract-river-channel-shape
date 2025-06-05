@@ -54,7 +54,7 @@ input_extract_centerline.csvを開き，二つの項目の設定を行ってか�
 
 各項目の意味は以下の通りです．
 
-- Data file name: 国土数値情報のxmlファイルの名前（W05-XX-XX.xml）
+- Data file name: 国土数値情報のxmlファイルの名前（W05-XXXXX.xml）
 - River code: 対象の河川の河川コード
 
 河川コードは以下に示す，国土交通省のWebサイトで検索できます．
