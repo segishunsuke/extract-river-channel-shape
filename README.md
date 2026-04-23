@@ -111,7 +111,7 @@ python extract_centerline.py
 [code](./code) に格納されている以下の 7 つの Python ファイルを全てダウンロードし，同一のディレクトリ（プロジェクトルート）に置いて下さい．
 
 - `gui_main.py`（GUI起動用）
-- `river_extractor.py`（処理メイン）
+- `river_extractor.py`（メイン処理）
 - `dem.py`
 - `dem1a.py`
 - `open_channel.py`
