@@ -161,11 +161,13 @@ python extract_centerline.py
  ┃  ┣ 📄 left_limit.gpkg ← 任意
  ┃  ┗ 📄 right_limit.gpkg ← 任意
  ┣ 📁 elevation/
- ┃  ┗ 📄 FG-GML-XXXX.xml（大量のDEMファイル）
+ ┃  ┗ 📄 FG-GML-XXXX.xml
  ┣ 📁 upa/
  ┃  ┗ 📄 nXXeXXX_upa.tif
- ┗ 📁 output/（自動生成される出力フォルダ）
+ ┗ 📁 output/
 ```
+
+`output`フォルダはプログラムの出力用のフォルダです．
 
 ### 4-6. 基本パラメータの設定
 
