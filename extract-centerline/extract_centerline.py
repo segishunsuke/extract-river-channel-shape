@@ -2,7 +2,8 @@
 
 import csv
 import xml.etree.ElementTree as et
-import shapefile
+import geopandas as gpd
+from shapely.geometry import Point
 
 ksj = "http://nlftp.mlit.go.jp/ksj/schemas/ksj-app"
 jps = "http://www.gsi.go.jp/GIS/jpgis/standardSchemas"
@@ -85,15 +86,21 @@ for curve in curves:
             river.append(coordinate)
             river_curve.append(curve)
 
-w = shapefile.Writer("river_centerline")
-w.shapeType = shapefile.POINT
-w.field('id', 'N')
-w.field('curve', 'C', size=16)
-for i in range(len(river)):
-    w.point(river[i][0], river[i][1])
-    w.record(i, river_curve[i])
-w.close()
+# ==========================================
+# GeoPackage (GPKG) 出力部分
+# ==========================================
 
-fout = open ('river_centerline.prj', 'w')
-fout.write('GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]')
-fout.close()
+# 1. ShapelyのPointオブジェクトのリストを作成
+geometry = [Point(lon, lat) for lon, lat in river]
+
+# 2. 属性データ（id, curve）とジオメトリを持つGeoDataFrameを作成
+# crs="EPSG:4326" でWGS84（元の.prjファイルと同等）を指定
+gdf = gpd.GeoDataFrame(
+    {'id': range(len(river)), 'curve': river_curve}, 
+    geometry=geometry, 
+    crs="EPSG:4326"
+)
+
+# 3. GeoPackageとして保存
+# engine="pyogrio" を指定すると、大規模データでも非常に高速に書き出し可能
+gdf.to_file("river_centerline.gpkg", driver="GPKG", engine="pyogrio")
