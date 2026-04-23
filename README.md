@@ -198,7 +198,7 @@ python gui_main.py
 
 <img src="./assets/images/gui.png">
 
-GUI de 起動時，プロジェクトルートに，`settings.csv`というファイルが出力されます．
+GUIの起動時，プロジェクトルートに，`settings.csv`というファイルが出力されます．
 このcsvファイルは，横断面別の抽出条件の設定値を格納したファイルです．
 各パラメータの論理的な意味や詳細な設定方法については，[詳細解説マニュアル（DOCUMENTATION.md）](./DOCUMENTATION.md)を参照して下さい．
 
