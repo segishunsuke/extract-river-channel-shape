@@ -73,9 +73,9 @@ pip install numpy pyproj rasterio geopandas shapely pyogrio
 python extract_centerline.py
 ```
 
-プログラムが終了すると，以下のシェープファイル（およびその支援ファイル）が出力されます．
+プログラムが終了すると，以下のGeoPackageファイルが出力されます．
 
-- `river_centerline.shp`: 指定された河川の河道中心線を構成するポイントのデータを格納したファイル
+- `river_centerline.gpkg`: 指定された河川の河道中心線を構成するポイントのデータを格納したファイル
 
 ## 3. 河道縦横断データの抽出範囲の決定<a name="3"></a>
 
