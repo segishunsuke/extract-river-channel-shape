@@ -158,8 +158,8 @@ python extract_centerline.py
  ┣ 📁 input/
  ┃  ┣ 📄 basic_parameters.csv
  ┃  ┣ 📄 river_centerline.gpkg
- ┃  ┣ 📄 left_limit.gpkg（任意）
- ┃  ┗ 📄 right_limit.gpkg（任意）
+ ┃  ┣ 📄 left_limit.gpkg ← 任意
+ ┃  ┗ 📄 right_limit.gpkg ← 任意
  ┣ 📁 elevation/
  ┃  ┗ 📄 FG-GML-XXXX.xml（大量のDEMファイル）
  ┣ 📁 upa/
