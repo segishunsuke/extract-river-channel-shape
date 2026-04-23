@@ -79,7 +79,7 @@ python extract_centerline.py
 
 ## 3. 河道縦横断データの抽出範囲の決定<a name="3"></a>
 
-[2-4](#2-4)で取得した`river_centerline.shp`を[QGIS](https://qgis.org/)で開き，記録されているポイントデータを閲覧して下さい．
+[2-4](#2-4)で取得した`river_centerline.gpkg`を[QGIS](https://qgis.org/)で開き，記録されているポイントデータを閲覧して下さい．
 
 まず，QGISのレイヤとして地理院地図を使える状態にない場合には，以下のWebサイトを参考に，地理院地図をQGISのレイヤに追加して下さい．
 
@@ -88,7 +88,7 @@ python extract_centerline.py
 地理院地図を使える場合は，以下の操作を行います．
 
 1. ブラウザパネルの「XYZ Tiles」から「地理院地図」レイヤをプロジェクトに追加する
-2. `river_centerline.shp`をQGISにドラッグ・アンド・ドロップする
+2. `river_centerline.gpkg`をQGISにドラッグ・アンド・ドロップする
 
 ポイントデータは，属性として`id`という識別番号を持ちます．識別番号は上流から下流に向けて昇順に並んでいます．
 
