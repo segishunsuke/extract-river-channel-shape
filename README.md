@@ -132,7 +132,9 @@ python extract_centerline.py
 
 河道縦横断データの抽出範囲を含むDEMデータを，次のURLからダウンロードして下さい：[https://service.gsi.go.jp/kiban/](https://service.gsi.go.jp/kiban/)
 
-ダウンロードしたzipファイルを展開して得られる `FG-GML-XXXX-XX-XX-DEMXX-XXXXXXXX.xml` という名前のファイルを全て同一のフォルダに置き，フォルダの名前を `elevation` とした上で，プロジェクトルートに置いて下さい．
+DEMデータは多数のzipファイルとしてダウンロードされます．[7zip](https://7-zip.opensource.jp/)を使うと一括でzipファイルを展開できます．
+
+zipファイルを展開して得られる `FG-GML-XXXX-XX-XX-DEMXX-XXXXXXXX.xml` という名前のファイルを全て同一のフォルダに置き，フォルダの名前を `elevation` とした上で，プロジェクトルートに置いて下さい．
 
 ### 4-4. 上流集水面積データ（J-FlwDir）の準備（任意）<a name="4-4"></a>
 
