@@ -93,10 +93,10 @@ for curve in curves:
 # 1. ShapelyのPointオブジェクトのリストを作成
 geometry = [Point(lon, lat) for lon, lat in river]
 
-# 2. 属性データ（id, curve）とジオメトリを持つGeoDataFrameを作成
+# 2. 属性データ（curveのみ）とジオメトリを持つGeoDataFrameを作成
 # crs="EPSG:4326" でWGS84（元の.prjファイルと同等）を指定
 gdf = gpd.GeoDataFrame(
-    {'id': range(len(river)), 'curve': river_curve}, 
+    {'curve': river_curve}, 
     geometry=geometry, 
     crs="EPSG:4326"
 )
