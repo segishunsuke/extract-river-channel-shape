@@ -139,7 +139,7 @@ python extract_centerline.py
 本ツールは，DEMからは得られない水面下の水深をマニング則により推定します．この推定には「断面ごとの流量（平水流量）」の設定が必要です．J-FlwDirの上流集水面積データを利用することで，比流量から流量を自動計算し，全断面へ一括設定することが可能です．
 
 1. **データのダウンロード**
-   下記URLから「Flow Accumulation Area / 上流集水面積」の `upa_v1.4.tar` をダウンロードして下さい（ユーザー登録が必要です）．
+   次のURLから「Flow Accumulation Area / 上流集水面積」の `upa_v1.4.tar` をダウンロードして下さい（ユーザー登録が必要です）：
    [https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)
 
 2. **展開と配置**
@@ -166,6 +166,7 @@ python extract_centerline.py
  ┣ 📁 upa/（任意）
  ┃  ┗ 📄 nXXeXXX_upa.tif
  ┗ 📁 output/（自動生成される出力フォルダ）
+```
 
 ### 4-6. 基本パラメータの設定
 
