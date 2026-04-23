@@ -163,7 +163,7 @@ python extract_centerline.py
  ┃  ┗ 📄 right_limit.gpkg（任意）
  ┣ 📁 elevation/
  ┃  ┗ 📄 FG-GML-XXXX.xml（大量のDEMファイル）
- ┣ 📁 upa/（任意）
+ ┣ 📁 upa/
  ┃  ┗ 📄 nXXeXXX_upa.tif
  ┗ 📁 output/（自動生成される出力フォルダ）
 ```
