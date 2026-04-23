@@ -23,8 +23,9 @@
 
 お使いのPython環境にこれらのライブラリがインストールされていない場合は，プロンプト上で以下のコマンドを入力してインストールを行って下さい．
 
-```bash
+```
 pip install numpy pyproj rasterio geopandas shapely pyogrio
+```
 
 ## 2. 河道中心線の抽出<a name="2"></a>
 
