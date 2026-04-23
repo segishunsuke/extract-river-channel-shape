@@ -106,79 +106,60 @@ python extract_centerline.py
 
 ## 4. 河道縦横断データの抽出
 
+今回のアップデートにより、ファイル構成が `input`（入力用）と `output`（出力用）フォルダに整理されました。
+
 ### 4-1. プログラムの準備
 
-[code](./code)に格納されている以下の8つのファイルを全てダウンロードし，同一のディレクトリに置いて下さい．
+[code](./code) に格納されている以下の 7 つの Python ファイルを全てダウンロードし，同一のディレクトリ（プロジェクトルート）に置いて下さい．
 
-- [gui_main.py](./code/gui_main.py)
-- [river_extractor.py](./code/river_extractor.py)
-- [basic_parameters.csv](./code/basic_parameters.csv)
-- [dem.py](./code/dem.py)
-- [dem1a.py](./code/dem1a.py)
-- [open_channel.py](./code/open_channel.py)
-- [rotation.py](./code/rotation.py)
-- [flow_accumulation_area.py](./code/flow_accumulation_area.py)
+- `gui_main.py`（GUI起動用）
+- `river_extractor.py`（処理メイン）
+- `dem.py`
+- `dem1a.py`
+- `open_channel.py`
+- `rotation.py`
+- `flow_accumulation_area.py`
 
-### 4-2. 河道中心線のデータの準備
+### 4-2. 入力データの配置（inputフォルダ）
 
-[2-4](#2-4)で取得した`river_centerline.shp`とその支援ファイルを`extract_river_channel_shape.py`の置かれたディレクトリに置いて下さい．
+プロジェクトルートに `input` という名前のフォルダを作成し，以下のデータを配置して下さい．
+
+1. **基本パラメータファイル**: [code](./code/basic_parameters.csv) からダウンロードした `basic_parameters.csv` を配置します．
+2. **河道中心線データ**: [2-4](#2-4) で取得した `river_centerline.gpkg` を配置します．
+3. **限界線データ（任意）**: QGIS等で作成した `left_limit.gpkg` および `right_limit.gpkg` がある場合はここに配置します．
 
 ### 4-3. DEMデータの準備
 
-このPythonプログラムは，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）と1mメッシュDEMデータ（DEM1A）の双方に対応しています．
+このプログラムは，5mメッシュDEMデータ（DEM5A, DEM5B, DEM5C）と1mメッシュDEMデータ（DEM1A）の双方に対応しています．
 
-ただし，DEM1Aは未整備の地域も多いため，利用可能かどうかは国土地理院のWebサイトで確認して下さい．
-
-[https://service.gsi.go.jp/kiban/app/help/#digital_elevation_model](https://service.gsi.go.jp/kiban/app/help/#digital_elevation_model)
-
-5mメッシュDEMと1mメッシュDEMのどちらを利用するか決めたら，河道縦横断データの抽出範囲を含むDEMデータを，下記URLからダウンロードして下さい．
-
+河道縦横断データの抽出範囲を含むDEMデータを，下記URLからダウンロードして下さい．
 [https://service.gsi.go.jp/kiban/](https://service.gsi.go.jp/kiban/)
 
-ダウンロードの手順は以下の通りです．
-
-1. 「基盤地図情報」の「数値標高モデル」をクリックする
-2. 地図上で対象範囲の2次メッシュをクリックして全て選択する
-3. ダウンロードするファイルをチェックして「選択をダウンロードリストに追加」をクリックする
-4. 「ダウンロードリストへ」をクリックする
-5. 「ダウンロードリスト」の「まとめてダウンロード」をクリックする
-   - ファイルのダウンロードには国土地理院のサイトへのログインが必要です．アカウントは誰でも無料で作成できます．
-
-ダウンロードしたzipファイルには，`FG-GML-XXXXXX-DEMXX-XXXXXXXX.zip`という名前のファイルが含まれています（Xには数字もしくはA, B, Cが入ります）．
-
-これらのzipファイルを全て展開して下さい．Windows PCをお使いの場合は，zipファイルの展開に[7-zip](https://7-zip.opensource.jp/)の「ここに展開」機能を使うことにより，複数のzipファイルの展開を効率的に行えます．
-
-zipファイルを展開して得られる`FG-GML-XXXX-XX-XX-DEMXX-XXXXXXXX.xml`という名前のファイルを全て同一のフォルダに置き，フォルダの名前を`elevation`として下さい．`elevation`フォルダの内容は以下の図のようになります．
-
-<img src="./assets/images/elevation_folder.png">
-
-`elevation`フォルダは`river_extractor.py`の置かれたディレクトリに置いて下さい．
+ダウンロードしたzipファイルを展開して得られる `FG-GML-XXXX-XX-XX-DEMXX-XXXXXXXX.xml` という名前のファイルを全て同一のフォルダに置き，フォルダの名前を `elevation` とした上で，プロジェクトルート（`gui_main.py` と同じ階層）に置いて下さい．
 
 ### 4-4. 上流集水面積データの準備（任意）<a name="4-4"></a>
 
-本手法は，DEMからは得られない水面下の水深を推定するために，横断面別の平水流量の設定を必要とします．
+横断面別の平水流量の設定に J-FlwDir のデータを利用する場合，ダウンロードした `upa_v1.4.tar` を展開して出てくる `upa` という名前のフォルダを，プロジェクトルートに置いて下さい．
 
-横断面別の平水流量の設定には，J-FlwDir: Japan Flow Direction Map / 日本域表面流向マップの上流集水面積のデータを利用できます．
+### 4-5. ファイル構成の確認
 
-[https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)
+準備が完了した際のディレクトリ構成は以下のようになります．
 
-データを利用しない場合には，ダウンロードは不要です．
-
-ダウンロードするにはユーザー登録が必要です．ユーザー登録は誰でも無料で行えます．
-
-ユーザー登録を完了したら，「Data Download / ダウンロード」セクションの「Flow Accumulation Area / 上流集水面積」の`upa_v1.4.tar`をダウンロードして下さい．
-
-[7-zip](https://7-zip.opensource.jp/)の「展開」機能などを用いて，`upa_v1.4.tar`を展開して下さい．
-
-展開すると，日本全国のメッシュ別上流集水面積を記録したtifファイルを含む，`upa`という名前のフォルダが出てきます．
-
-この`upa`という名前のフォルダを，リネームせずに，`river_extractor.py`の置かれたディレクトリに置いて下さい
-
-### 4-5. ファイルの確認
-
-ここまでの作業が完了し，`river_extractor.py`の置かれたディレクトリの内容が以下の図のようになっていれば，プログラムを実行するための準備が整ったことになります（上流集水面積データを利用しない場合には，`upa`という名前のフォルダは不要です）．
-
-<img src="./assets/images/files.png">
+```text
+📁 プロジェクトルート
+ ┣ 📄 gui_main.py
+ ┣ 📄 river_extractor.py
+ ┣ 📄 dem.py / dem1a.py / open_channel.py / rotation.py / flow_accumulation_area.py
+ ┣ 📁 input/
+ ┃  ┣ 📄 basic_parameters.csv
+ ┃  ┣ 📄 river_centerline.gpkg
+ ┃  ┣ 📄 left_limit.gpkg（任意）
+ ┃  ┗ 📄 right_limit.gpkg（任意）
+ ┣ 📁 elevation/
+ ┃  ┗ 📄 FG-GML-XXXX.xml（大量のDEMファイル）
+ ┣ 📁 upa/（任意）
+ ┃  ┗ 📄 nXXeXXX_upa.tif
+ ┗ 📁 output/（自動生成される出力フォルダ）
 
 ### 4-6. 基本パラメータの設定
 
