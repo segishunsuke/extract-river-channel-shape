@@ -12,22 +12,19 @@
 
 ## 1. 必要なライブラリのインストール
 
-このプログラムを用いるには，以下の3件のPythonライブラリが必要です．
+このプログラムを用いるには，以下のライブラリが必要です．
 
-- [PyShp](https://pypi.org/project/pyshp/)
-- [Pyproj](https://github.com/pyproj4/pyproj)
-- [rasterio](https://rasterio.readthedocs.io/en/stable/)
+- [NumPy](https://numpy.org/): 数値計算用
+- [Pyproj](https://github.com/pyproj4/pyproj): 座標変換用
+- [rasterio](https://rasterio.readthedocs.io/en/stable/): ラスタデータ（TIFF）の読み込み用
+- [GeoPandas](https://geopandas.org/): 地理空間データ（GPKG）の操作用
+- [Shapely](https://shapely.readthedocs.io/): 幾何学計算用
+- [pyogrio](https://github.com/geopandas/pyogrio): GPKGファイルの高速な読み書きエンジン
 
 お使いのPython環境にこれらのライブラリがインストールされていない場合は，プロンプト上で以下のコマンドを入力してインストールを行って下さい．
-```
-pip install pyshp
-```
-```
-pip install pyproj
-```
-```
-pip install rasterio
-```
+
+```bash
+pip install numpy pyproj rasterio geopandas shapely pyogrio
 
 ## 2. 河道中心線の抽出<a name="2"></a>
 
