@@ -35,8 +35,8 @@ class RiverCrossSectionExtractor:
             data = [row for row in reader]
 
         self.plane_rectangular_coordinate_system = data[0][1]
-        self.id_begin = int(data[1][1])
-        self.id_end = int(data[2][1])
+        self.id_begin = int(data[1][1]) - 1 # fidが入力される
+        self.id_end = int(data[2][1]) - 1 # fidが入力される
         self.estimate_water_depth = int(data[3][1])
         self.clear_crossings = int(data[4][1])
         self.flow = float(data[5][1])
@@ -624,7 +624,8 @@ class RiverCrossSectionExtractor:
     def calculate_water_surface(self):
         self.widths_river = np.zeros(self.n_sections)
         self.elevations_water_tmp = np.zeros(self.n_sections)
-
+        
+        # 【1段目】まずは単純な新旧DEM判定を用いて計算する
         for i_section in range(self.n_sections):
             section_topography = self.sections_topography[i_section]
             j_right = self.js_stake_right[i_section]
@@ -640,8 +641,31 @@ class RiverCrossSectionExtractor:
                     self.widths_river[i_section] = np.count_nonzero(segment <= min_elevation + self.water_surface_tolerance) * self.transverse_interval
                     self.elevations_water_tmp[i_section] = min_elevation
             else:
+                # wsts != 0.0 の場合もノイズを除外して最小値を取得する
+                valid_segment = segment[segment != -9999.0]
+                min_elevation = np.min(valid_segment) if len(valid_segment) > 0 else 0.0
                 self.widths_river[i_section] = np.count_nonzero(segment <= min_elevation + self.wsts[i_section]) * self.transverse_interval
                 self.elevations_water_tmp[i_section] = min_elevation
+        
+        # 【2段目】異常な新旧DEM判定検知と再評価
+        widths_median = np.zeros(self.n_sections)
+        for i in range(self.n_sections):
+            r = min(self.n_samples_for_median_water_surface // 2, i, self.n_sections - 1 - i)
+            widths_median[i] = np.median(self.widths_river[i - r:i + r + 1])
+
+        for i_section in range(self.n_sections):
+            if self.wsts[i_section] == 0.0:
+                segment = self.sections_topography[i_section][self.js_stake_left[i_section]:self.js_stake_right[i_section]+1]
+                
+                # 条件：川幅が中央値の10%未満と極端に狭く、かつ -9999.0 を含んでいる場合
+                # （＝新仕様DEMなのにノイズの -9999.0 を拾って旧仕様と誤判定した可能性が高い）
+                if self.widths_river[i_section] < widths_median[i_section] * 0.1 and np.any(segment == -9999.0):
+                    # ノイズを除外した「真の最小値」を該当断面で再計算する
+                    valid_segment = segment[segment != -9999.0]
+                    if len(valid_segment) > 0:
+                        true_min_elevation = np.min(valid_segment)
+                        self.widths_river[i_section] = np.count_nonzero(segment <= true_min_elevation + self.water_surface_tolerance) * self.transverse_interval
+                        self.elevations_water_tmp[i_section] = true_min_elevation
         
         self.elevations_water = np.zeros(self.n_sections)
         
@@ -731,6 +755,97 @@ class RiverCrossSectionExtractor:
                     break
 
             self.sections_topography[i] = section_topography
+        
+        def calculate_riverbed(self, progress_callback=None):
+            self.depths = np.zeros(self.n_sections)
+            self.elevations_riverbed_tmp = np.zeros(self.n_sections)
+            
+            # ====================================================
+            # 1. 水深と河床標高の計算（等流・不等流計算）
+            # ====================================================
+            if self.estimate_water_depth:
+                for i in range(self.n_sections - 1, -1, -1):
+                    if progress_callback:
+                        progress_callback(self.n_sections - 1 - i, self.n_sections, "河床標高計算")
+        
+                    if i == self.n_sections - 1:
+                        # 最上流端は等流計算 (マニングの平均流速公式) で水深を求める
+                        self.depths[i] = (self.flows[i] * self.roughness / (self.widths_river[i] * np.sqrt(self.slopes_water[i]))) ** (3.0 / 5.0)
+                    else:
+                        # それ以外の断面は上流側から不等流計算を行って水深を求める
+                        self.depths[i] = open_channel.find_depth(
+                            self.depths[i + 1], self.flows[i + 1],
+                            self.widths_river[i], self.widths_river[i + 1],
+                            self.slopes_water[i], self.distance_between_sections,
+                            int(self.distance_between_sections / self.difference_in_differential_equation + 0.5),
+                            self.roughness
+                        )
+            
+            # 一時的な河床標高 ＝ (水面標高) － (計算された水深)
+            self.elevations_riverbed_tmp[:] = self.elevations_water[:] - self.depths[:]
+            self.elevations_riverbed = np.zeros(self.n_sections)
+            
+            # 河床標高の平滑化（メディアンフィルタによるスパイクノイズの除去）
+            for i in range(self.n_sections):
+                r = min(self.n_samples_for_median_riverbed // 2, i, self.n_sections - 1 - i)
+                self.elevations_riverbed[i] = np.median(self.elevations_riverbed_tmp[i - r:i + r + 1])
+            
+            # ====================================================
+            # 2. 地形データ (DEM) への河床の適用（コの字型への掘削処理）
+            # ====================================================
+            for i in range(self.n_sections):
+                section_topography = self.sections_topography[i]
+                j_left = self.js_stake_left[i]
+                j_right = self.js_stake_right[i]
+                
+                # 前の calculate_water_surface 関数で「ノイズを除外して正しく特定した真の水面標高」
+                # が self.elevations_water_tmp[i] に保存されているため、それをそのまま再利用
+                min_elevation = self.elevations_water_tmp[i]
+                
+                # 水面とみなす高さの許容範囲を設定し、マスク（置き換え対象のインデックス）を作成
+                if self.wsts[i] == 0.0:
+                    # -9999.0 のノイズも min_elevation より圧倒的に小さいため、この条件式 (<=) を確実に満たす
+                    # 結果として、ノイズ部分も水面と一緒に綺麗な平らな河床高に上書きされる
+                    mask = section_topography[j_left:j_right+1] <= min_elevation + self.water_surface_tolerance
+                else:
+                    mask = section_topography[j_left:j_right+1] <= min_elevation + self.wsts[i]
+                
+                # マスクに該当する範囲（水面およびノイズ部分）を一律に計算した河床高に掘削する
+                section_topography[j_left:j_right+1][mask] = self.elevations_riverbed[i]
+                
+                # 安全弁：もし元々のDEM地形が、計算した河床高よりも高い場所があった場合は、
+                # 掘りすぎを防ぐために元の地形の高さを優先して残す（fmaxで要素ごとに大きい方を採用）
+                section_topography[j_left:j_right+1] = np.fmax(
+                    section_topography[j_left:j_right+1],
+                    self.elevations_riverbed[i]
+                )
+    
+                # ====================================================
+                # 3. 横断データの端部トリミング（不要データのカット）
+                # ====================================================
+                # 右岸側の不要なデータ（水面より低い、杭より高い、または指定余裕幅を超過）を切り落とす
+                for j in range(j_right + 1, len(section_topography)):
+                    if (section_topography[j] < self.elevations_water[i] or
+                        section_topography[j] > self.stakes_right[i, 2] or
+                        (j - j_right) * self.transverse_interval >= self.margin + 1.0e-7):
+                        section_topography = section_topography[:j]
+                        break
+    
+                # 左岸側の不要なデータ（水面より低い、杭より高い、または指定余裕幅を超過）を切り落とす
+                for j in range(j_left - 1, -1, -1):
+                    if (section_topography[j] < self.elevations_water[i] or
+                        section_topography[j] > self.stakes_left[i, 2] or
+                        (j_left - j) * self.transverse_interval >= self.margin + 1.0e-7):
+                        
+                        # 左岸を切り落とした分、配列のインデックスがずれるため中心や杭の位置を補正する
+                        self.js_center[i] -= j + 1
+                        self.js_stake_right[i] -= j + 1
+                        self.js_stake_left[i] -= j + 1
+                        section_topography = section_topography[j + 1:]
+                        break
+    
+                # 処理が完了した断面地形データをクラス変数に保存
+                self.sections_topography[i] = section_topography
     
     def export_results(self):
         if not os.path.exists("output"):
