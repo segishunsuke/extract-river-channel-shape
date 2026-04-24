@@ -284,7 +284,7 @@ GUIの起動時，プロジェクトルートに`settings.csv`というファイ
 - `right_bank`: 右岸端の標高（右岸側の最大標高，単位：m）
 - `riverbed`: 河床標高（単位：m）
 
-`basic_parameters.csv`の`Estimate water depth`が0の場合，`riverbed`は河床標高ではなく水面標高になっています．
+※ `basic_parameters.csv`の`Estimate water depth`が0の場合，`riverbed`は河床標高ではなく水面標高になっています．
 
 ## 5. 左岸端・右岸端の位置調整<a name="5"></a>
 
