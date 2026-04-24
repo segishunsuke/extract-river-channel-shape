@@ -64,20 +64,82 @@ for GB02 in GB02s.values():
         EOR = GB02["EOR"]
         sections.append({"LOC":GB02["LOC"], "SOS":GB02["SOS"], "EOS":GB02["EOS"]})
 
-section_map = {s["SOS"]: s for s in sections}
-curves = []
-point = SOR
-while point != EOR:
-    section = section_map.get(point)
-    if section is None:
-        raise RuntimeError(f"区間が見つかりません: SOS={point}")
-    curves.append(section["LOC"])
-    point = section["EOS"]
+# 1. データ内のすべてのSOS（始点）とEOS（終点）を集める
+all_sos = set(s["SOS"] for s in sections)
+all_eos = set(s["EOS"] for s in sections)
+all_nodes = all_sos | all_eos
 
+# 2. SOR（元の開始ノード）が現在のファイルに存在するか確認し、なければ最上流を探す
+if SOR in all_nodes:
+    point = SOR
+else:
+    # 他の区間の終点(EOS)になっていない始点(SOS)を最上流ノードとみなす
+    start_candidates = all_sos - all_eos
+    if start_candidates:
+        point = start_candidates.pop() # 見つかった候補をスタートにする
+        print(f"SORがファイル内にないため、最上流候補 {point} からスタートします。")
+    else:
+        # 念のため、全て逆向きでデジタイズされていた場合の考慮
+        end_candidates = all_eos - all_sos
+        if end_candidates:
+            point = end_candidates.pop()
+            print(f"SORがファイル内にないため、上流候補 {point} からスタートします。")
+        else:
+            raise RuntimeError("スタート地点の候補が見つかりません。")
+
+curves = []
+visited = set()
+
+# 3. 途切れるまで繋ぎ続ける（無限ループにして、途切れたらbreakで抜ける）
+while True:
+    # EOR（元の終了ノード）に到達したら終了
+    if point == EOR:
+        break
+        
+    next_section = None
+    next_point = None
+    is_forward = True
+    
+    for i, section in enumerate(sections):
+        if i in visited:
+            continue
+            
+        if section["SOS"] == point:
+            next_section = section
+            next_point = section["EOS"]
+            is_forward = True
+            visited.add(i)
+            break
+        elif section["EOS"] == point:
+            next_section = section
+            next_point = section["SOS"]
+            is_forward = False # 線が逆向き
+            visited.add(i)
+            break
+            
+    # 次の接続先が見つからなかったら、終端（県境など）に達したとみなしてループを終了する
+    if next_section is None:
+        print(f"ノード {point} で川が途切れました。接続を終了します。")
+        break
+        
+    curves.append({
+        "LOC": next_section["LOC"], 
+        "is_forward": is_forward
+    })
+    point = next_point
+
+# 4. 座標を一本のラインとして結合する
 river = []
 river_curve = []
-for curve in curves:
+for curve_info in curves:
+    curve = curve_info["LOC"]
+    is_forward = curve_info["is_forward"]
+    
     coordinates = GM_Curves[curve]
+    
+    if not is_forward:
+        coordinates = list(reversed(coordinates))
+        
     for coordinate in coordinates:
         if len(river) == 0:
             river.append(coordinate)
