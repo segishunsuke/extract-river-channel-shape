@@ -4,6 +4,7 @@ import csv
 import xml.etree.ElementTree as et
 import geopandas as gpd
 from shapely.geometry import Point
+from collections import defaultdict
 
 ksj = "http://nlftp.mlit.go.jp/ksj/schemas/ksj-app"
 jps = "http://www.gsi.go.jp/GIS/jpgis/standardSchemas"
@@ -64,79 +65,71 @@ for GB02 in GB02s.values():
         EOR = GB02["EOR"]
         sections.append({"LOC":GB02["LOC"], "SOS":GB02["SOS"], "EOS":GB02["EOS"]})
 
-# 1. データ内のすべてのSOS（始点）とEOS（終点）を集める
-all_sos = set(s["SOS"] for s in sections)
-all_eos = set(s["EOS"] for s in sections)
-all_nodes = all_sos | all_eos
+# 1. 双方向グラフの構築（矢印の向きを無視して全区間を繋ぐ）
+adj = defaultdict(list)
+for sec in sections:
+    sos = sec["SOS"]
+    eos = sec["EOS"]
+    loc = sec["LOC"]
+    # 順方向（SOS -> EOS）
+    adj[sos].append({"loc": loc, "next_node": eos, "is_forward": True})
+    # 逆方向（EOS -> SOS）として辿れる道も作っておく
+    adj[eos].append({"loc": loc, "next_node": sos, "is_forward": False})
 
-# 2. SOR（元の開始ノード）が現在のファイルに存在するか確認し、なければ最上流を探す
+# 2. スタート地点の決定
+all_nodes = set(adj.keys())
 if SOR in all_nodes:
-    point = SOR
+    start_point = SOR
 else:
-    # 他の区間の終点(EOS)になっていない始点(SOS)を最上流ノードとみなす
-    start_candidates = all_sos - all_eos
-    if start_candidates:
-        point = start_candidates.pop() # 見つかった候補をスタートにする
-        print(f"SORがファイル内にないため、最上流候補 {point} からスタートします。")
-    else:
-        # 念のため、全て逆向きでデジタイズされていた場合の考慮
-        end_candidates = all_eos - all_sos
-        if end_candidates:
-            point = end_candidates.pop()
-            print(f"SORがファイル内にないため、上流候補 {point} からスタートします。")
-        else:
-            raise RuntimeError("スタート地点の候補が見つかりません。")
+    # 接続先が1つしかない端点（源流 または 河口）を探す
+    endpoints = [node for node, edges in adj.items() if len(edges) == 1]
+    if not endpoints:
+        raise RuntimeError("端点が見つかりません。")
+    # IDが若い方（上流）をスタート地点に採用
+    start_point = sorted(endpoints)[0]
+    print(f"SORが見つからないため、端点候補 {start_point} から抽出を開始します。")
 
+# 3. トラバース（中州を回避しつつ一本道を描く）
+point = start_point
+visited_locs = set()
+visited_nodes = {start_point}
 curves = []
-visited = set()
 
-# 3. 途切れるまで繋ぎ続ける（無限ループにして、途切れたらbreakで抜ける）
 while True:
-    # EOR（元の終了ノード）に到達したら終了
-    if point == EOR:
-        break
-        
-    next_section = None
-    next_point = None
-    is_forward = True
+    next_edge = None
     
-    for i, section in enumerate(sections):
-        if i in visited:
-            continue
-            
-        if section["SOS"] == point:
-            next_section = section
-            next_point = section["EOS"]
-            is_forward = True
-            visited.add(i)
-            break
-        elif section["EOS"] == point:
-            next_section = section
-            next_point = section["SOS"]
-            is_forward = False # 線が逆向き
-            visited.add(i)
+    # 優先：未訪問の「ノード」へ向かう道（ループを防止）
+    for edge in adj[point]:
+        if edge["loc"] not in visited_locs and edge["next_node"] not in visited_nodes:
+            next_edge = edge
             break
             
-    # 次の接続先が見つからなかったら、終端（県境など）に達したとみなしてループを終了する
-    if next_section is None:
-        print(f"ノード {point} で川が途切れました。接続を終了します。")
+    # 予備：未訪問ノードへの道がなければ、仕方なく未訪問の「道」を選ぶ
+    if next_edge is None:
+        for edge in adj[point]:
+            if edge["loc"] not in visited_locs:
+                next_edge = edge
+                break
+
+    if next_edge is None:
+        print(f"ノード {point} で抽出が終了しました（全 {len(curves)} 区間）。")
         break
         
-    curves.append({
-        "LOC": next_section["LOC"], 
-        "is_forward": is_forward
-    })
-    point = next_point
+    loc = next_edge["loc"]
+    curves.append({"loc": loc, "is_forward": next_edge["is_forward"]})
+    visited_locs.add(loc)
+    point = next_edge["next_node"]
+    visited_nodes.add(point)
 
-# 4. 座標を一本のラインとして結合する
+# 4. 座標の結合（逆走した区間は座標を反転させる）
 river = []
 river_curve = []
 for curve_info in curves:
-    curve = curve_info["LOC"]
+    curve = curve_info["loc"]
     is_forward = curve_info["is_forward"]
     
     coordinates = GM_Curves[curve]
-    
+    # 逆向きに繋いだ場合は、ジオメトリが連続するように座標順序をリバースする
     if not is_forward:
         coordinates = list(reversed(coordinates))
         
@@ -156,7 +149,7 @@ for curve_info in curves:
 geometry = [Point(lon, lat) for lon, lat in river]
 
 # 2. 属性データ（curveのみ）とジオメトリを持つGeoDataFrameを作成
-# crs="EPSG:4326" でWGS84（元の.prjファイルと同等）を指定
+# crs="EPSG:4326" でWGS84を指定
 gdf = gpd.GeoDataFrame(
     {'curve': river_curve}, 
     geometry=geometry, 
