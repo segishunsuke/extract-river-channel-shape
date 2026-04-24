@@ -244,9 +244,9 @@ GUIの起動時，プロジェクトルートに`settings.csv`というファイ
 
 抽出が終了すると，プロジェクトルートに`output`という名前のフォルダが作られ，その中に以下のファイルと河道縦横断データが出力されます．
 
-- **intermediate_result.csv**: DEMから読み取った標高データや左岸端・右岸端の位置を記録したファイル（**編集しないで下さい**）．
-- **river_channel.gpkg**: 左岸線，右岸線，横断面とその諸元（左岸端・右岸端・河床の標高）を記録したGPKGファイル．
-- **elevation.csv**: 河床（Riverbed），水面（Water surface），岸端（Stake）の標高を縦断方向に記録したcsvファイル．
+- `intermediate_result.csv`: DEMから読み取った標高データや左岸端・右岸端の位置を記録したファイル（編集しないで下さい）．
+- `river_channel.gpkg`: 左岸線，右岸線，横断面とその諸元（左岸端・右岸端・河床の標高）を記録したGPKGファイル．
+- `elevation.csv`: 河床（Riverbed），水面（Water surface），岸端（Stake）の標高を縦断方向に記録したcsvファイル．
 
 河道縦横断データとして出力されるファイルは，`basic_parameters.csv`の`iRIC format`の設定値によって異なります．
 
