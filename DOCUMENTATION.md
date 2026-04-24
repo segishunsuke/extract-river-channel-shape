@@ -2,57 +2,57 @@
 
 `basic_parameters.csv` の全25項目の詳細な設定方法およびアルゴリズムの仕様を整理します．
 
-#### Plane rectangular coordinate system
+### Plane rectangular coordinate system
 対象の河道をカバーする平面直角座標系のEPSGコードを "epsg:6680" のように記載して下さい．コードは以下のURLから検索できます．
 [https://lemulus.me/column/epsg-list-gis#2011JGD2011](https://lemulus.me/column/epsg-list-gis#2011JGD2011)
 
-#### Initial point ID, Terminal point ID
+### Initial point ID, Terminal point ID
 上流端および下流端のポイント識別番号です．上流端は抽出範囲より1kmほど上流に設定することを推奨します．
 
-#### Flow
+### Flow
 対象河川の代表地点の平水流量（m3/s）です．デフォルトでは，`basic_parameters.csv`の設定が全ての横断面に適用されます．
 [水文水質データベース](http://www1.river.go.jp/)等から取得して下さい．
 データが入手できない場合は，[J-FlwDir](https://hydro.iis.u-tokyo.ac.jp/~yamadai/JapanDir/)の集水面積から比流量を用いて設定して下さい．
 
-#### Estimate water depth
+### Estimate water depth
 DEMから得られない水面下の水深を推定するかどうか（0：しない，1：する）の設定です．
 
-#### Clear crossings
+### Clear crossings
 横断面の交差を自動で解消するかどうか（0：しない，1：する）の設定です．
 
-#### tol1-3（境界探索しきい値）
+### tol1-3（境界探索しきい値）
 横断面の左右岸端の位置設定に利用されます．デフォルトでは，`basic_parameters.csv`の設定が全ての横断面に適用されます．河道中心線から外側へ進みながら，以下の3条件が満たされた地点で標高読み取りが停止し，最高地点を岸端とします．
 1. 最低標高と最高標高の差が `tol1`(m)以上
 2. 現在地点の標高と最高標高の差が `tol2`(m)以上
 3. 現在地点の勾配が `tol3`以下
 <img src="./assets/images/tol.png" width="400px">
 
-#### tol4-5, adjust1-3（自動調整）
+### tol4-5, adjust1-3（自動調整）
 探索が永久に終わらないのを防ぐため，中心線から `tol4`(m)以上離れるか，最低標高より `tol5`(m)以上高くなった場合，`tol1-3` に `adjust1-3` を乗じて再探索します．
 デフォルトでは，`basic_parameters.csv`の`tol4`, `tol5`の設定が，全ての横断面に適用されます．
 
-#### DEM type
+### DEM type
 使用するDEMの種類です．デフォルトでは，`basic_parameters.csv`の設定が全ての横断面に適用されます．設定値は以下のいずれかです．
 - 5mメッシュDEM: `A`, `B`, `C`
 - 1mメッシュDEM: `1A`
 
 `A`と書いておけば，読み取り地点ごとにDEMの利用可能性を調べ，5A→5B→5Cの優先順位で自動選択を行います．
 
-#### Distance between sections
+### Distance between sections
 河道中心線に沿った，横断面の取得間隔（m）です．
 
-#### Transverse interval
+### Transverse interval
 横断方向の標高取得間隔（m）です．
 
-#### Margin
+### Margin
 岸端の外側に取るマージンの上限（m）です．0mに設定すると河道外を切り捨てます．
 
-#### iRIC format
+### iRIC format
 河道縦横断データの出力形式です．設定値は以下のいずれかです．
 - 1: iRIC形式
 - 0: DioVISTA/Flood形式
 
-#### 水深推定用パラメータ<a name="depth_estimation"></a>
+### 水深推定用パラメータ<a name="depth_estimation"></a>
 
 このプログラムが用いる，河床標高の設定方法を述べます．このプログラムは，広矩形単断面を持つ開水路の不等流計算の基礎式である，
 ```math
