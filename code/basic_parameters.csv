@@ -12,7 +12,7 @@ tol5 [m],30
 DEM type,A
 Distance between sections [m],100
 Transverse interval [m],1
-Margin [m],30
+Margin [m],100
 iRIC format,1
 adjust1,0.9
 adjust2,0.5
