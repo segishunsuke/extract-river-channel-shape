@@ -61,35 +61,52 @@ for GB02 in root.iter("{"+ksj+"}GB02"):
 sections = []
 for GB02 in GB02s.values():
     if GB02["RIC"] == river_code:
-        SOR = GB02["SOR"]
-        EOR = GB02["EOR"]
         sections.append({"LOC":GB02["LOC"], "SOS":GB02["SOS"], "EOS":GB02["EOS"]})
 
-# 1. 双方向グラフの構築（矢印の向きを無視して全区間を繋ぐ）
+if not sections:
+    raise RuntimeError("該当する河川コードの区間が見つかりません。")
+
+# ---------------------------------------------------------
+# 【源流判定ロジック】双方向グラフの構築と、本来の矢印の向きの集計
+# ---------------------------------------------------------
 adj = defaultdict(list)
+original_in_degree = defaultdict(int)
+
 for sec in sections:
     sos = sec["SOS"]
     eos = sec["EOS"]
     loc = sec["LOC"]
-    # 順方向（SOS -> EOS）
+    
+    # 双方向に道を作る（逆走も許可）
     adj[sos].append({"loc": loc, "next_node": eos, "is_forward": True})
-    # 逆方向（EOS -> SOS）として辿れる道も作っておく
     adj[eos].append({"loc": loc, "next_node": sos, "is_forward": False})
+    
+    # 本来のデジタイズ方向（SOS -> EOS）における「入ってくる数」
+    original_in_degree[eos] += 1
+    if sos not in original_in_degree:
+        original_in_degree[sos] = 0
 
-# 2. スタート地点の決定
-all_nodes = set(adj.keys())
-if SOR in all_nodes:
-    start_point = SOR
+# ---------------------------------------------------------
+# 真の「源流」を正確に判定する
+# ---------------------------------------------------------
+endpoints = [node for node, edges in adj.items() if len(edges) == 1]
+
+if not endpoints:
+    raise RuntimeError("端点が見つかりません（完全にループしている等）。")
+
+# 端点の中から、「本来の矢印が1本も入ってこない（in_degree == 0）」ものを真の源流とする
+true_sources = [node for node in endpoints if original_in_degree[node] == 0]
+
+if true_sources:
+    start_point = sorted(true_sources)[0]
+    print(f"源流 {start_point} を特定しました。ここから抽出を開始します。")
 else:
-    # 接続先が1つしかない端点（源流 または 河口）を探す
-    endpoints = [node for node, edges in adj.items() if len(edges) == 1]
-    if not endpoints:
-        raise RuntimeError("端点が見つかりません。")
-    # IDが若い方（上流）をスタート地点に採用
     start_point = sorted(endpoints)[0]
-    print(f"SORが見つからないため、端点候補 {start_point} から抽出を開始します。")
+    print(f"源流が特定できないため、端点候補 {start_point} から抽出を開始します。")
 
-# 3. トラバース（中州を回避しつつ一本道を描く）
+# ---------------------------------------------------------
+# 一本道抽出（トラバース）処理
+# ---------------------------------------------------------
 point = start_point
 visited_locs = set()
 visited_nodes = {start_point}
@@ -98,13 +115,13 @@ curves = []
 while True:
     next_edge = None
     
-    # 優先：未訪問の「ノード」へ向かう道（ループを防止）
+    # 優先：未訪問の「ノード」へ向かう道
     for edge in adj[point]:
         if edge["loc"] not in visited_locs and edge["next_node"] not in visited_nodes:
             next_edge = edge
             break
             
-    # 予備：未訪問ノードへの道がなければ、仕方なく未訪問の「道」を選ぶ
+    # 予備：未訪問の「道」を選ぶ
     if next_edge is None:
         for edge in adj[point]:
             if edge["loc"] not in visited_locs:
@@ -121,7 +138,7 @@ while True:
     point = next_edge["next_node"]
     visited_nodes.add(point)
 
-# 4. 座標の結合（逆走した区間は座標を反転させる）
+# 座標の結合（逆走した区間は座標を反転させる）
 river = []
 river_curve = []
 for curve_info in curves:
